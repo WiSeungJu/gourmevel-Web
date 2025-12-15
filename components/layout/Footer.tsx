@@ -18,7 +18,7 @@ export default function Footer() {
             <p className="font-serif text-black/60 leading-relaxed text-lg">
               &quot;Taste The Extraordinary.&quot; <br/>
               <span className="text-sm mt-2 block opacity-70">
-                A curated journal for the modern epicurean, exploring the intersection of culinary art and atmosphere.
+                평범한 일상 속 특별한 미식 경험을 찾는 당신을 위한 가이드.
               </span>
             </p>
           </div>
@@ -46,8 +46,8 @@ export default function Footer() {
         <div className="pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-sans tracking-widest uppercase text-black/40">
           <p>&copy; {new Date().getFullYear()} GOURMEVEL. ALL RIGHTS RESERVED.</p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-black transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-black transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-black transition-colors">개인정보처리방침</Link>
+            <Link href="/terms" className="hover:text-black transition-colors">이용약관</Link>
           </div>
         </div>
       </div>

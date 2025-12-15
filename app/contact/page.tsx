@@ -53,20 +53,20 @@ export default function ContactPage() {
               <div className="relative">
                 <div className="absolute top-0 left-0 w-12 h-[1px] bg-brand-primary/20" />
                 <p className="font-serif text-xl md:text-2xl text-brand-primary/80 leading-relaxed pt-8">
-                  &ldquo;Whether it&apos;s an invitation to a hidden gem or a creative partnership, we are always eager to listen.&rdquo;
+                  &ldquo;숨겨진 맛집으로의 초대든, 창의적인 협업 제안이든, 우리는 언제나 들을 준비가 되어 있습니다.&rdquo;
                 </p>
               </div>
 
               <div className="space-y-8 pt-8">
                 <div className="group">
-                  <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-2">General Inquiries</p>
+                  <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-2">일반 문의</p>
                   <a href="mailto:contact@gourmevel.com" className="font-serif text-2xl text-brand-primary hover:text-brand-secondary transition-colors italic">
                     contact@gourmevel.com
                   </a>
                 </div>
                 
                 <div className="group">
-                  <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-2">Follow Our Journey</p>
+                  <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-2">공식 SNS</p>
                   <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-serif text-2xl text-brand-primary hover:text-brand-secondary transition-colors italic">
                     @gourmevel
                   </a>
@@ -86,32 +86,32 @@ export default function ContactPage() {
                   <div className="w-20 h-20 bg-brand-primary/5 rounded-full flex items-center justify-center mb-8 text-brand-primary">
                     <CheckCircle2 className="w-10 h-10" />
                   </div>
-                  <h3 className="font-display text-3xl text-brand-primary mb-4">Message Sent</h3>
+                  <h3 className="font-display text-3xl text-brand-primary mb-4">전송 완료</h3>
                   <p className="font-serif text-brand-primary/60 max-w-xs leading-relaxed">
-                    Thank you for your interest. We will review your message and respond shortly.
+                    관심 가져주셔서 감사합니다. 메시지를 확인하는 대로 곧 답변 드리겠습니다.
                   </p>
                   <button 
                     onClick={() => setFormStatus('idle')}
                     className="mt-12 text-xs font-sans tracking-[0.2em] uppercase text-brand-secondary border-b border-brand-secondary/30 pb-1 hover:text-brand-primary hover:border-brand-primary transition-all"
                   >
-                    Send another message
+                    다른 메시지 보내기
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-10">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     <div className="space-y-4 group">
-                      <label htmlFor="name" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">Name</label>
+                      <label htmlFor="name" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">이름</label>
                       <input 
                         type="text" 
                         id="name" 
                         required
                         className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary placeholder-brand-primary/10"
-                        placeholder="Your Name"
+                        placeholder="성함"
                       />
                     </div>
                     <div className="space-y-4 group">
-                      <label htmlFor="email" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">Email</label>
+                      <label htmlFor="email" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">이메일</label>
                       <input 
                         type="email" 
                         id="email" 
@@ -123,26 +123,26 @@ export default function ContactPage() {
                   </div>
 
                   <div className="space-y-4 group">
-                    <label htmlFor="company" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">Organization</label>
+                    <label htmlFor="company" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">소속/회사</label>
                     <input 
                       type="text" 
                       id="company" 
                       className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary placeholder-brand-primary/10"
-                      placeholder="Restaurant or Company Name"
+                      placeholder="레스토랑 또는 회사명"
                     />
                   </div>
 
                   <div className="space-y-4 group">
-                    <label htmlFor="type" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">Subject</label>
+                    <label htmlFor="type" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">주제</label>
                     <div className="relative">
                       <select 
                         id="type" 
                         className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary appearance-none cursor-pointer rounded-none"
                       >
-                        <option>General Inquiry</option>
-                        <option>Collaboration Proposal</option>
-                        <option>Restaurant Invitation</option>
-                        <option>Press & Media</option>
+                        <option>일반 문의</option>
+                        <option>협업 제안</option>
+                        <option>레스토랑 초대</option>
+                        <option>보도 및 미디어</option>
                       </select>
                       <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-brand-primary/30">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -153,13 +153,13 @@ export default function ContactPage() {
                   </div>
 
                   <div className="space-y-4 group">
-                    <label htmlFor="message" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">Message</label>
+                    <label htmlFor="message" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">메시지</label>
                     <textarea 
                       id="message" 
                       required
                       rows={4}
                       className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary placeholder-brand-primary/10 resize-none"
-                      placeholder="Tell us about your proposal..."
+                      placeholder="제안하고 싶은 내용을 자유롭게 적어주세요..."
                     />
                   </div>
 
@@ -169,7 +169,7 @@ export default function ContactPage() {
                       disabled={formStatus === 'submitting'}
                       className="group inline-flex items-center gap-4 bg-brand-primary text-brand-beige px-10 py-5 text-xs font-sans font-bold tracking-[0.2em] uppercase hover:bg-brand-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:pr-8"
                     >
-                      {formStatus === 'submitting' ? 'Sending...' : 'Send Message'}
+                      {formStatus === 'submitting' ? '전송 중...' : '메시지 보내기'}
                       <Send className="w-4 h-4 text-brand-secondary group-hover:translate-x-2 transition-transform" />
                     </button>
                   </div>
