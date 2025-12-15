@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts - Artistic & Minimal */
+  --font-display: var(--font-bodoni), serif;
+  --font-sans: var(--font-inter), sans-serif;
+  --font-serif: var(--font-noto), serif;
+
+  /* Colors */
+  --color-black: #111111;
+  --color-white: #F3F3F3; /* 살짝 회색빛 도는 종이 색감 */
+}
+
+@layer base {
+  body {
+    @apply bg-white text-black font-sans antialiased;
+  }
+
+  /* 폰트를 극적으로 크게 사용 */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight text-balance;
+  }
+
+  /* Lenis Scroll */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  .lenis.lenis-scrolling iframe { pointer-events: none; }
+}
