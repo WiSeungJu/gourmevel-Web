@@ -17,7 +17,7 @@ export default function Header() {
           {/* Left Section: Info (Desktop) / Menu (Mobile) */}
           <div className="flex justify-start items-center pointer-events-auto">
             <span className="hidden md:block font-sans text-[10px] tracking-[0.2em] uppercase opacity-80">
-              Est. 2024 — Seoul
+              Est. 2022 — Seoul
             </span>
             <button className="md:hidden p-2 -ml-2 hover:opacity-70 transition-opacity">
               <Menu className="w-5 h-5" />
