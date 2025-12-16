@@ -37,7 +37,7 @@ export default function Header() {
           {/* Left Section: Info (Desktop) / Menu (Mobile) */}
           <div className={`flex justify-start items-center ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'}`}>
             <span className="hidden md:block font-sans text-[10px] tracking-[0.2em] uppercase opacity-80">
-              Est. 2022 — Seoul
+              Gourmet & Travel Journal
             </span>
             <button className="md:hidden p-2 -ml-2 hover:opacity-70 transition-opacity">
               <Menu className="w-5 h-5" />
@@ -63,11 +63,11 @@ export default function Header() {
                  <Link href="/about" className="font-sans text-[10px] tracking-[0.2em] uppercase hover:underline underline-offset-4 decoration-1">
                    About
                  </Link>
+                 <Link href="/stories" className="font-sans text-[10px] tracking-[0.2em] uppercase hover:underline underline-offset-4 decoration-1">
+                   Stories
+                 </Link>
                  <Link href="/reviews" className="font-sans text-[10px] tracking-[0.2em] uppercase hover:underline underline-offset-4 decoration-1">
                    Reviews
-                 </Link>
-                 <Link href="/essays" className="font-sans text-[10px] tracking-[0.2em] uppercase hover:underline underline-offset-4 decoration-1">
-                   Essays
                  </Link>
                </div>
                

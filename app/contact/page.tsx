@@ -1,19 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Send, CheckCircle2 } from "lucide-react";
 
 export default function ContactPage() {
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [selectedType, setSelectedType] = useState('일반 문의');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('submitting');
     setTimeout(() => setFormStatus('success'), 1500);
   };
+
+  const contactTypes = [
+    '일반 문의',
+    '협업 제안',
+    '레스토랑 초대',
+    '보도 및 미디어'
+  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-brand-beige selection:bg-brand-primary selection:text-brand-secondary">
@@ -52,9 +61,10 @@ export default function ContactPage() {
             >
               <div className="relative">
                 <div className="absolute top-0 left-0 w-12 h-[1px] bg-brand-primary/20" />
-                <p className="font-serif text-xl md:text-2xl text-brand-primary/80 leading-relaxed pt-8">
-                  &ldquo;숨겨진 맛집으로의 초대든, 창의적인 협업 제안이든, 우리는 언제나 들을 준비가 되어 있습니다.&rdquo;
-                </p>
+                <div className="font-serif text-lg md:text-2xl text-brand-primary/80 leading-relaxed pt-8">
+                  <span className="block whitespace-nowrap">&ldquo;숨겨진 맛집으로의 초대든, 창의적인 협업 제안이든,</span>
+                  <span className="block whitespace-nowrap">우리는 언제나 들을 준비가 되어 있습니다.&rdquo;</span>
+                </div>
               </div>
 
               <div className="space-y-8 pt-8">
@@ -66,7 +76,7 @@ export default function ContactPage() {
                 </div>
                 
                 <div className="group">
-                  <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-2">공식 SNS</p>
+                  <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-2">Instagram</p>
                   <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-serif text-2xl text-brand-primary hover:text-brand-secondary transition-colors italic">
                     @gourmevel
                   </a>
@@ -79,7 +89,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="lg:col-span-7 bg-white p-8 md:p-16 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-brand-primary/5"
+              className="lg:col-span-7 bg-white p-8 md:p-16 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-brand-primary/5 relative z-10"
             >
               {formStatus === 'success' ? (
                 <div className="h-full flex flex-col items-center justify-center text-center py-20">
@@ -132,24 +142,67 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <div className="space-y-4 group">
+                  <div className="space-y-4 group relative">
                     <label htmlFor="type" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">주제</label>
-                    <div className="relative">
-                      <select 
-                        id="type" 
-                        className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary appearance-none cursor-pointer rounded-none"
+                    
+                    {/* Custom Dropdown Trigger */}
+                    <button
+                      type="button"
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      className="w-full border-b border-brand-stone py-2 flex items-center justify-between group-focus-within:border-brand-primary transition-colors bg-transparent"
+                    >
+                      <span className="font-serif text-lg text-brand-primary text-left">{selectedType}</span>
+                      <motion.div
+                        animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="text-brand-primary/30"
                       >
-                        <option>일반 문의</option>
-                        <option>협업 제안</option>
-                        <option>레스토랑 초대</option>
-                        <option>보도 및 미디어</option>
-                      </select>
-                      <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-brand-primary/30">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1" strokeLinecap="square"/>
                         </svg>
-                      </div>
-                    </div>
+                      </motion.div>
+                    </button>
+
+                    {/* Custom Dropdown Menu */}
+                    <AnimatePresence>
+                      {isDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute left-0 right-0 top-full mt-2 bg-white shadow-xl border border-brand-primary/5 z-50 max-h-60 overflow-y-auto"
+                        >
+                          {contactTypes.map((type) => (
+                            <button
+                              key={type}
+                              type="button"
+                              onClick={() => {
+                                setSelectedType(type);
+                                setIsDropdownOpen(false);
+                              }}
+                              className={`w-full text-left px-6 py-4 font-serif text-lg hover:bg-brand-beige transition-colors ${
+                                selectedType === type ? 'text-brand-primary bg-brand-primary/5' : 'text-brand-primary/60'
+                              }`}
+                            >
+                              {type}
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                    
+                    {/* Hidden Select for Form Submission logic if needed later */}
+                    <select 
+                      id="type" 
+                      value={selectedType}
+                      onChange={(e) => setSelectedType(e.target.value)}
+                      className="hidden"
+                    >
+                      {contactTypes.map(type => (
+                        <option key={type} value={type}>{type}</option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="space-y-4 group">
@@ -159,7 +212,11 @@ export default function ContactPage() {
                       required
                       rows={4}
                       className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary placeholder-brand-primary/10 resize-none"
-                      placeholder="제안하고 싶은 내용을 자유롭게 적어주세요..."
+                      placeholder={
+                        selectedType === '협업 제안' || selectedType === '레스토랑 초대'
+                          ? "구체적인 제안 내용과 예상 일정, 예산(원고료/초대 범위) 등을 함께 적어주시면 더욱 빠른 검토가 가능합니다."
+                          : "문의하실 내용을 자유롭게 적어주세요."
+                      }
                     />
                   </div>
 

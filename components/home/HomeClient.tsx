@@ -1,93 +1,109 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { urlFor } from "@/sanity/lib/image";
+import { ArrowUpRight } from "lucide-react";
+
+// Types
+interface Article {
+  _id: string;
+  title: string;
+  subtitle?: string;
+  slug: { current: string };
+  mainImage?: any;
+  categories?: string[];
+  publishedAt: string;
+}
+
+interface HomeClientProps {
+  recentArticle?: Article | null;
+  topArticles?: Article[];
+  allArticles?: Article[];
+}
 
 // Fallback Data
-const FALLBACK_RESTAURANTS = [
+const DUMMY_ARTICLE: Article = {
+  _id: "dummy-1",
+  title: "The Art of Fermentation",
+  subtitle: "시간이 빚어내는 미각의 깊이에 대하여",
+  slug: { current: "art-of-fermentation" },
+  mainImage: {
+    asset: {
+      url: "https://images.unsplash.com/photo-1542129202-e2c72b216124?q=80&w=2692&auto=format&fit=crop"
+    }
+  },
+  categories: ["Essay"],
+  publishedAt: new Date().toISOString()
+};
+
+const DUMMY_TOP_ARTICLES: Article[] = [
   {
-    _id: "01",
-    displayId: "01",
-    name: "Mingles",
-    location: "Seoul",
-    description: "자연의 조화",
-    img: "https://images.unsplash.com/photo-1542129202-e2c72b216124?q=80&w=2692&auto=format&fit=crop" 
+    _id: "dummy-2",
+    title: "Seoul's Hidden Gems",
+    subtitle: "골목길에 숨겨진 미식의 보물창고",
+    slug: { current: "seoul-hidden-gems" },
+    mainImage: {
+      asset: { url: "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=2940&auto=format&fit=crop" }
+    },
+    categories: ["Guide"],
+    publishedAt: new Date().toISOString()
   },
   {
-    _id: "02",
-    displayId: "02",
-    name: "Mosu",
-    location: "Seoul",
-    description: "혁신의 정의",
-    img: "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=2940&auto=format&fit=crop"
+    _id: "dummy-3",
+    title: "Chef's Table: Mingles",
+    subtitle: "강민구 셰프가 말하는 한식의 미래",
+    slug: { current: "chefs-table-mingles" },
+    mainImage: {
+      asset: { url: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2874&auto=format&fit=crop" }
+    },
+    categories: ["Interview"],
+    publishedAt: new Date().toISOString()
   },
   {
-    _id: "03",
-    displayId: "03",
-    name: "Jungsik",
-    location: "New York",
-    description: "새로운 한식",
-    img: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2874&auto=format&fit=crop"
-  },
-  {
-    _id: "04",
-    displayId: "04",
-    name: "Onjium",
-    location: "Seoul",
-    description: "전통의 미학",
-    img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2670&auto=format&fit=crop"
+    _id: "dummy-4",
+    title: "Modern Dining Trends",
+    subtitle: "2024년 파인 다이닝의 새로운 흐름",
+    slug: { current: "modern-dining-trends" },
+    mainImage: {
+      asset: { url: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2670&auto=format&fit=crop" }
+    },
+    categories: ["Trend"],
+    publishedAt: new Date().toISOString()
   }
 ];
 
-interface Restaurant {
-  _id: string;
-  displayId?: string;
-  name: string;
-  location: string;
-  description?: string; // Sanity field
-  desc?: string; // Fallback field
-  mainImage?: any;
-  img?: string;
-}
-
-export default function HomeClient({ restaurants = [] }: { restaurants?: Restaurant[] }) {
-  const [activeIdx, setActiveIdx] = useState(0);
+export default function HomeClient({ 
+  recentArticle = null, 
+  topArticles = [], 
+  allArticles = [] 
+}: HomeClientProps) {
   const containerRef = useRef(null);
-  
-  // Use fallback if no data provided
-  const data = (restaurants && restaurants.length > 0) ? restaurants : FALLBACK_RESTAURANTS;
-
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  // Parallax for Hero
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, 300]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  // Use dummy data if no real data
+  const mainArticle = recentArticle || DUMMY_ARTICLE;
+  const topPicks = topArticles.length > 0 ? topArticles : DUMMY_TOP_ARTICLES;
+  const storyList = allArticles.length > 0 ? allArticles : DUMMY_TOP_ARTICLES; 
 
-  const getImageUrl = (item: Restaurant) => {
-    if (item.mainImage) {
-      return urlFor(item.mainImage).width(1600).url();
-    }
-    return item.img || '';
+  const getImageUrl = (image: any) => {
+    if (!image) return "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2670&auto=format&fit=crop";
+    if (image.asset?.url) return image.asset.url;
+    return urlFor(image).width(1600).url();
   };
 
   return (
-    <div 
-      ref={containerRef} 
-      className="min-h-[200vh] bg-brand-paper selection:bg-brand-black selection:text-brand-paper cursor-default"
-    >
+    <div ref={containerRef} className="bg-[#F2F1ED] min-h-screen selection:bg-black selection:text-[#F2F1ED]">
       <Header />
-      
+
       <main>
-        {/* Hero Section: Abstract Art Motion */}
+        {/* 1. Intro Hero Section: Abstract Art Motion (Original) */}
         <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-[#F2F1ED]">
           
           {/* Abstract Liquid Shape */}
@@ -133,7 +149,7 @@ export default function HomeClient({ restaurants = [] }: { restaurants?: Restaur
               </p>
               <div className="w-[1px] h-16 bg-current mx-auto mb-6 opacity-50" />
               <p className="font-sans text-[11px] tracking-[0.3em] uppercase opacity-80">
-                Seoul — 2022
+                Seoul — 2024
               </p>
             </motion.div>
           </div>
@@ -149,99 +165,118 @@ export default function HomeClient({ restaurants = [] }: { restaurants?: Restaur
           </motion.div>
         </section>
 
-        {/* List Section */}
-        <section className="py-40 px-6 md:px-12 bg-brand-paper relative z-10">
-          <div className="max-w-screen-2xl mx-auto">
-            <div className="flex items-end justify-between mb-24 border-b border-black pb-4">
-               <h2 className="font-sans text-[10px] tracking-[0.2em] uppercase">Selected Dining</h2>
-               <span className="font-sans text-[10px] tracking-[0.2em] uppercase">{data.length.toString().padStart(2, '0')}</span>
-            </div>
 
-            <div className="flex flex-col md:flex-row gap-12 md:gap-20">
-              {/* List */}
-              <div className="w-full md:w-1/2 flex flex-col">
-                {data.map((item, idx) => (
-                  <div 
-                    key={item._id}
-                    onMouseEnter={() => setActiveIdx(idx)}
-                    className="group relative border-b border-black/10 hover:border-black transition-colors duration-300 py-12 md:py-16 cursor-pointer flex flex-col"
-                  >
-                     <div className="flex items-baseline gap-8 md:gap-12 transition-transform duration-500 group-hover:translate-x-4">
-                        <span className="font-sans text-xs tracking-widest opacity-40 group-hover:opacity-100 transition-opacity">
-                          {item.displayId || (idx + 1).toString().padStart(2, '0')}
-                        </span>
-                        <h3 className="font-display text-4xl md:text-7xl tracking-tight text-brand-black group-hover:italic transition-all">
-                          {item.name}
-                        </h3>
-                     </div>
-                     
-                     <div className="mt-4 md:mt-6 flex gap-6 md:gap-10 items-center opacity-40 group-hover:opacity-100 transition-opacity duration-500 pl-12 md:pl-20">
-                        <span className="font-sans text-[10px] tracking-[0.2em] uppercase">{item.location}</span>
-                        <span className="font-serif italic text-sm md:text-lg">{item.description || item.desc}</span>
-                     </div>
-
-                     {/* Mobile Image Reveal */}
-                     <div className="md:hidden mt-6 overflow-hidden max-h-0 group-hover:max-h-[300px] transition-all duration-500 ease-in-out">
-                        <div className="relative w-full h-48">
-                          <Image 
-                            src={getImageUrl(item)} 
-                            alt={item.name} 
-                            fill
-                            className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                          />
-                        </div>
-                     </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Desktop Image Preview (Sticky) */}
-              <div className="hidden md:block w-1/2 relative">
-                 <div className="sticky top-32 h-[600px] w-full overflow-hidden bg-[#EAE9E4]">
-                    <AnimatePresence mode="wait">
-                       <motion.div 
-                         key={data[activeIdx]?._id || 'empty'}
-                         initial={{ opacity: 0, scale: 1.1 }}
-                         animate={{ opacity: 1, scale: 1 }}
-                         exit={{ opacity: 0 }}
-                         transition={{ duration: 0.7, ease: "easeOut" }}
-                         className="relative w-full h-full"
-                       >
-                         {data[activeIdx] && (
-                           <Image
-                             src={getImageUrl(data[activeIdx])}
-                             alt={data[activeIdx].name}
-                             fill
-                             className="object-cover grayscale-[20%]"
-                             priority
-                             sizes="50vw"
-                           />
-                         )}
-                       </motion.div>
-                    </AnimatePresence>
-                    {/* Caption Overlay */}
-                    {data[activeIdx] && (
-                      <motion.div 
-                        key={`caption-${data[activeIdx]._id}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                        className="absolute bottom-8 left-8 bg-white/90 backdrop-blur-sm px-6 py-4 max-w-sm"
-                      >
-                         <p className="font-serif italic text-lg mb-2">{data[activeIdx].description || data[activeIdx].desc}</p>
-                         <p className="font-sans text-[10px] tracking-widest uppercase opacity-60">Featured in {data[activeIdx].location}</p>
-                      </motion.div>
-                    )}
-                 </div>
-              </div>
-            </div>
-
-            <div className="text-center mt-40">
-              <a href="/reviews" className="group inline-flex flex-col items-center gap-2">
-                 <span className="font-serif italic text-2xl group-hover:opacity-50 transition-opacity">View All Reviews</span>
-                 <span className="block w-[1px] h-12 bg-black group-hover:h-20 transition-all duration-500"></span>
+        {/* 2. Latest Feature (Full Width Image) */}
+        <section className="relative w-full h-[80vh] overflow-hidden">
+          <div className="absolute inset-0">
+            <Image
+              src={getImageUrl(mainArticle.mainImage)}
+              alt={mainArticle.title}
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/30" />
+          </div>
+          <div className="relative h-full flex items-center justify-center text-center px-6">
+            <div className="text-white max-w-4xl">
+              <span className="font-sans text-xs tracking-[0.3em] uppercase border border-white/40 px-4 py-2 mb-8 inline-block backdrop-blur-sm">
+                Latest Story
+              </span>
+              <h2 className="font-display text-5xl md:text-7xl lg:text-8xl mb-8 leading-tight">
+                {mainArticle.title}
+              </h2>
+              <a 
+                href={`/article/${mainArticle.slug.current}`}
+                className="inline-flex items-center gap-2 font-serif text-xl border-b border-white/50 pb-1 hover:border-white transition-colors"
+              >
+                Read Article <ArrowUpRight className="w-5 h-5" />
               </a>
+            </div>
+          </div>
+        </section>
+
+
+        {/* 3. Top Picks (Grid) */}
+        <section className="py-32 px-6 md:px-12 max-w-screen-2xl mx-auto bg-[#F2F1ED]">
+          <div className="flex items-end justify-between mb-20">
+            <h2 className="font-display text-4xl md:text-5xl text-black">Top Picks</h2>
+            <div className="hidden md:block w-full max-w-xs h-[1px] bg-black/10 mb-4 ml-8" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16">
+            {topPicks.map((article, idx) => (
+              <motion.div 
+                key={article._id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="group cursor-pointer"
+              >
+                <div className="relative aspect-[4/5] mb-8 overflow-hidden bg-gray-200">
+                  <Image
+                    src={getImageUrl(article.mainImage)}
+                    alt={article.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale-[20%] group-hover:grayscale-0"
+                  />
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1">
+                    <span className="font-sans text-[10px] tracking-widest uppercase text-black">
+                      {article.categories?.[0] || 'Story'}
+                    </span>
+                  </div>
+                </div>
+                
+                <h3 className="font-display text-2xl md:text-3xl mb-3 group-hover:italic transition-all">
+                  {article.title}
+                </h3>
+                <p className="font-serif text-black/60 line-clamp-2 leading-relaxed">
+                  {article.subtitle}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+
+        {/* 4. All Stories (List) */}
+        <section className="py-20 px-6 md:px-12 bg-white border-t border-black/5">
+          <div className="max-w-screen-2xl mx-auto">
+            <h2 className="font-sans text-xs tracking-[0.2em] uppercase text-black/40 mb-16">All Stories</h2>
+
+            <div className="divide-y divide-black/10 border-t border-black/10 border-b">
+              {storyList.map((article) => (
+                <article 
+                  key={article._id}
+                  className="group py-12 flex flex-col md:flex-row md:items-center justify-between gap-8 hover:bg-gray-50 transition-colors px-4 -mx-4 cursor-pointer"
+                >
+                  <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
+                    <span className="font-sans text-xs tracking-widest text-black/40 w-24">
+                      {new Date(article.publishedAt).toLocaleDateString()}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-3xl md:text-4xl mb-2 group-hover:text-brand-primary transition-colors">
+                        {article.title}
+                      </h3>
+                      <p className="font-serif text-black/60">
+                        {article.subtitle}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="font-sans text-[10px] tracking-widest uppercase">Read</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-20 text-center">
+              <button className="font-sans text-xs tracking-[0.2em] uppercase border border-black/20 px-8 py-4 hover:bg-black hover:text-white transition-all">
+                Load More
+              </button>
             </div>
           </div>
         </section>
@@ -251,4 +286,3 @@ export default function HomeClient({ restaurants = [] }: { restaurants?: Restaur
     </div>
   );
 }
-
