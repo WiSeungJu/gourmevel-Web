@@ -82,7 +82,7 @@ export default function Header() {
                    <Search className="w-4 h-4" />
                  </button>
                  <a 
-                   href="https://instagram.com" 
+                   href="https://www.instagram.com/gourmevel/" 
                    target="_blank" 
                    rel="noopener noreferrer" 
                    className="hover:opacity-70 transition-opacity"

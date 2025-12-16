@@ -77,7 +77,7 @@ export default function ContactPage() {
                 
                 <div className="group">
                   <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-2">Instagram</p>
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-serif text-2xl text-brand-primary hover:text-brand-secondary transition-colors italic">
+                  <a href="https://www.instagram.com/gourmevel/" target="_blank" rel="noopener noreferrer" className="font-serif text-2xl text-brand-primary hover:text-brand-secondary transition-colors italic">
                     @gourmevel
                   </a>
                 </div>

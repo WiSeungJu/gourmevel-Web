@@ -37,7 +37,7 @@ export default function Footer() {
               <h3 className="font-sans text-xs font-bold tracking-[0.2em] uppercase text-black mb-6">Connect</h3>
               <ul className="space-y-4 font-serif text-black/70">
                 <li><Link href="/contact" className="hover:text-black transition-colors">Contact</Link></li>
-                <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Instagram</a></li>
+                <li><a href="https://www.instagram.com/gourmevel/" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Instagram</a></li>
               </ul>
             </div>
           </div>
