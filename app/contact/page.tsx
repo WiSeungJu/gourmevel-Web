@@ -60,8 +60,8 @@ export default function ContactPage() {
               <div className="space-y-8 pt-8">
                 <div className="group">
                   <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-2">일반 문의</p>
-                  <a href="mailto:contact@gourmevel.com" className="font-serif text-2xl text-brand-primary hover:text-brand-secondary transition-colors italic">
-                    contact@gourmevel.com
+                  <a href="mailto:gourmevel@gmail.com" className="font-serif text-2xl text-brand-primary hover:text-brand-secondary transition-colors italic">
+                    gourmevel@gmail.com
                   </a>
                 </div>
                 

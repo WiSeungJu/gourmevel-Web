@@ -43,11 +43,37 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-sans tracking-widest uppercase text-black/40">
-          <p>&copy; {new Date().getFullYear()} GOURMEVEL. ALL RIGHTS RESERVED.</p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-black transition-colors">개인정보처리방침</Link>
-            <Link href="/terms" className="hover:text-black transition-colors">이용약관</Link>
+        {/* 사업자 정보 및 Copyright 섹션 */}
+        <div className="pt-8 border-t border-black/5">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-8">
+            {/* 사업자 정보 */}
+            <div className="text-[11px] font-serif text-black/50 leading-relaxed space-y-1">
+              <p>
+                <span className="font-sans font-bold text-black/70 mr-2">상호명</span> 고메블
+                <span className="mx-2 text-black/20">|</span>
+                <span className="font-sans font-bold text-black/70 mr-2">대표자</span> 위승주
+              </p>
+              <p>
+                <span className="font-sans font-bold text-black/70 mr-2">사업자등록번호</span> 342-15-02376
+              </p>
+              <p>
+                <span className="font-sans font-bold text-black/70 mr-2">주소</span> 서울특별시 서대문구 가재울미래로 2, 114동 2102호
+              </p>
+              <p>
+                <span className="font-sans font-bold text-black/70 mr-2">이메일</span> gourmevel@gmail.com
+              </p>
+            </div>
+
+            {/* 링크 및 Copyright */}
+            <div className="flex flex-col items-start md:items-end gap-4">
+              <div className="flex gap-6 font-sans text-[10px] tracking-widest uppercase text-black/60">
+                <Link href="/privacy" className="font-bold hover:text-black transition-colors">개인정보처리방침</Link>
+                <Link href="/terms" className="hover:text-black transition-colors">이용약관</Link>
+              </div>
+              <p className="font-sans text-[10px] tracking-widest uppercase text-black/40">
+                &copy; {new Date().getFullYear()} GOURMEVEL. ALL RIGHTS RESERVED.
+              </p>
+            </div>
           </div>
         </div>
       </div>

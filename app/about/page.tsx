@@ -43,14 +43,14 @@ export default function AboutPage() {
 
         {/* Intro Text Section */}
         <section className="py-32 px-6 md:px-12">
-           <div className="max-w-3xl mx-auto text-center">
+           <div className="max-w-5xl mx-auto text-center">
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
                 className="font-serif text-xl md:text-3xl leading-relaxed text-black/80 break-keep"
               >
-                &ldquo;Gourmevel은 미식(Gourmet)과 여행(Travel)의 경계에서,<br className="hidden md:block" />
+                &ldquo;Gourmevel은 미식(Gourmet)과 여행(Travel)의 경계에서,<br />
                 단순히 먹는 행위를 넘어 그 안에 담긴 문화와 이야기를 탐구합니다.&rdquo;
               </motion.p>
               <div className="w-[1px] h-20 bg-black/20 mx-auto my-16" />
@@ -89,6 +89,26 @@ export default function AboutPage() {
                className="w-full h-full bg-black rounded-full opacity-10 mix-blend-multiply blur-3xl"
                style={{ filter: "url(#liquid-filter-about)" }}
              />
+
+             {/* Centered Text inside the Shape */}
+             <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 pointer-events-none">
+               <motion.h3 
+                 initial={{ opacity: 0, y: 10 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 transition={{ duration: 0.8, delay: 0.5 }}
+                 className="font-display text-3xl md:text-5xl text-white mb-3 drop-shadow-md"
+               >
+                 Our Core Philosophy
+               </motion.h3>
+               <motion.p 
+                 initial={{ opacity: 0, y: 10 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 transition={{ duration: 0.8, delay: 0.7 }}
+                 className="font-serif text-sm md:text-base text-white/90 tracking-widest uppercase drop-shadow-sm"
+               >
+                 우리의 시선이 머무는 곳
+               </motion.p>
+             </div>
            </div>
         </section>
 

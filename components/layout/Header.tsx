@@ -1,21 +1,41 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, Instagram, Search, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  // isHome 체크는 유지하되, 텍스트 색상 결정에는 영향을 주지 않도록 로직 단순화
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-40 mix-blend-difference text-[#F2F1ED] pointer-events-none">
-        <div className="w-full px-6 md:px-12 py-6 grid grid-cols-3 items-center">
+      <header 
+        className={`fixed top-0 left-0 w-full z-40 transition-all duration-700 ease-in-out ${
+          isScrolled 
+            ? 'bg-white/80 backdrop-blur-md border-b border-black/5 py-4 shadow-sm' 
+            : 'bg-transparent py-6 pointer-events-none'
+        } text-black`}
+      >
+        <div className="w-full px-6 md:px-12 grid grid-cols-3 items-center">
           
           {/* Left Section: Info (Desktop) / Menu (Mobile) */}
-          <div className="flex justify-start items-center pointer-events-auto">
+          <div className={`flex justify-start items-center ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'}`}>
             <span className="hidden md:block font-sans text-[10px] tracking-[0.2em] uppercase opacity-80">
               Est. 2022 — Seoul
             </span>
@@ -25,18 +45,19 @@ export default function Header() {
           </div>
 
           {/* Center Section: Logo */}
-          <div className="flex justify-center pointer-events-auto">
+          <div className={`flex justify-center ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'}`}>
             <Link href="/" className="block relative w-24 md:w-32 hover:opacity-70 transition-opacity">
+               {/* 로고: 항상 검정색 (원본이 흰색이면 invert 필요) */}
                <img 
                  src="/logo.png" 
                  alt="Gourmevel" 
-                 className="w-full h-auto object-contain filter invert brightness-0 contrast-200" 
+                 className="w-full h-auto object-contain transition-all duration-700 filter invert opacity-90" 
                />
             </Link>
           </div>
 
           {/* Right Section: Navigation & CTA */}
-          <nav className="flex justify-end items-center pointer-events-auto">
+          <nav className={`flex justify-end items-center ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'}`}>
              <div className="hidden md:flex items-center gap-8">
                <div className="flex gap-6">
                  <Link href="/about" className="font-sans text-[10px] tracking-[0.2em] uppercase hover:underline underline-offset-4 decoration-1">
@@ -50,7 +71,8 @@ export default function Header() {
                  </Link>
                </div>
                
-               <div className="w-[1px] h-3 bg-[#F2F1ED] opacity-30" />
+               {/* 구분선: 항상 검정색 */}
+               <div className="w-[1px] h-3 bg-black opacity-30" />
 
                <div className="flex items-center gap-6">
                  <button 
@@ -69,8 +91,11 @@ export default function Header() {
                  </a>
                </div>
 
-               {/* Styled Contact Button */}
-               <Link href="/contact" className="font-sans text-[10px] tracking-[0.2em] uppercase border border-[#F2F1ED] px-6 py-2 hover:bg-[#F2F1ED] hover:text-black transition-all duration-300">
+               {/* Styled Contact Button: 항상 검정 테두리 */}
+               <Link 
+                 href="/contact" 
+                 className="font-sans text-[10px] tracking-[0.2em] uppercase border border-black px-6 py-2 hover:bg-black hover:text-white transition-all duration-300"
+               >
                  Contact
                </Link>
              </div>
