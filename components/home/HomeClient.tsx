@@ -149,7 +149,7 @@ export default function HomeClient({
               </p>
               <div className="w-[1px] h-16 bg-current mx-auto mb-6 opacity-50" />
               <p className="font-sans text-[11px] tracking-[0.3em] uppercase opacity-80">
-                Seoul — 2024
+                Since — 2022
               </p>
             </motion.div>
           </div>

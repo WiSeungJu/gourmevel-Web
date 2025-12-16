@@ -20,7 +20,7 @@ export default async function ReviewsPage() {
   return (
     <ArticleList 
       title="Reviews" 
-      description="엄선된 파인 다이닝 레스토랑의 미식 경험을 상세한 리뷰와 함께 소개합니다."
+      description="엄선된 다이닝 공간에서의 미식 경험을 상세한 리뷰와 함께 소개합니다."
       articles={articles}
     />
   );

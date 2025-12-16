@@ -9,9 +9,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-  // isHome 체크는 유지하되, 텍스트 색상 결정에는 영향을 주지 않도록 로직 단순화
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +22,28 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // 메뉴 열렸을 때 스크롤 방지
+  useEffect(() => {
+    if (isMenuOpen || isSearchOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isMenuOpen, isSearchOpen]);
+
+  // 페이지 이동 시 메뉴 닫기
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsSearchOpen(false);
+  }, [pathname]);
+
+  const menuItems = [
+    { label: 'About', href: '/about' },
+    { label: 'Stories', href: '/stories' },
+    { label: 'Reviews', href: '/reviews' },
+    { label: 'Contact', href: '/contact' },
+  ];
 
   return (
     <>
@@ -36,10 +58,13 @@ export default function Header() {
           
           {/* Left Section: Info (Desktop) / Menu (Mobile) */}
           <div className={`flex justify-start items-center ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'}`}>
-            <span className="hidden md:block font-sans text-[10px] tracking-[0.2em] uppercase opacity-80">
+            <span className={`hidden md:block font-sans text-[10px] tracking-[0.2em] uppercase opacity-80 transition-shadow duration-700 ${!isScrolled ? 'drop-shadow-md' : ''}`}>
               Gourmet & Travel Journal
             </span>
-            <button className="md:hidden p-2 -ml-2 hover:opacity-70 transition-opacity">
+            <button 
+              onClick={() => setIsMenuOpen(true)}
+              className="md:hidden p-2 -ml-2 hover:opacity-70 transition-opacity pointer-events-auto"
+            >
               <Menu className="w-5 h-5" />
             </button>
           </div>
@@ -60,15 +85,15 @@ export default function Header() {
           <nav className={`flex justify-end items-center ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'}`}>
              <div className="hidden md:flex items-center gap-8">
                <div className="flex gap-6">
-                 <Link href="/about" className="font-sans text-[10px] tracking-[0.2em] uppercase hover:underline underline-offset-4 decoration-1">
-                   About
-                 </Link>
-                 <Link href="/stories" className="font-sans text-[10px] tracking-[0.2em] uppercase hover:underline underline-offset-4 decoration-1">
-                   Stories
-                 </Link>
-                 <Link href="/reviews" className="font-sans text-[10px] tracking-[0.2em] uppercase hover:underline underline-offset-4 decoration-1">
-                   Reviews
-                 </Link>
+                 {menuItems.slice(0, 3).map((item) => (
+                    <Link 
+                      key={item.href}
+                      href={item.href} 
+                      className="font-sans text-[10px] tracking-[0.2em] uppercase hover:underline underline-offset-4 decoration-1"
+                    >
+                      {item.label}
+                    </Link>
+                 ))}
                </div>
                
                {/* 구분선: 항상 검정색 */}
@@ -105,13 +130,65 @@ export default function Header() {
                <button onClick={() => setIsSearchOpen(true)}>
                  <Search className="w-5 h-5" />
                </button>
-               <Link href="/contact" className="font-sans text-[10px] tracking-[0.2em] uppercase">
-                 Contact
-               </Link>
              </div>
           </nav>
         </div>
       </header>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, x: '-100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '-100%' }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-50 bg-[#F2F1ED] text-[#111] flex flex-col pointer-events-auto"
+          >
+            {/* Header in Overlay */}
+            <div className="w-full px-6 py-6 flex justify-between items-center border-b border-black/5">
+              <span className="font-sans text-[10px] tracking-[0.2em] uppercase opacity-50">Menu</span>
+              <button 
+                onClick={() => setIsMenuOpen(false)}
+                className="p-2 -mr-2 hover:opacity-50 transition-opacity"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Menu Links */}
+            <div className="flex-grow flex flex-col justify-center px-8 space-y-8">
+              {menuItems.map((item, idx) => (
+                <motion.div
+                  key={item.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 + idx * 0.1 }}
+                >
+                  <Link 
+                    href={item.href}
+                    className="font-display text-4xl md:text-5xl hover:text-brand-primary transition-colors block"
+                  >
+                    {item.label}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Footer Info in Menu */}
+            <div className="p-8 border-t border-black/5">
+              <div className="flex gap-6 mb-6">
+                <a href="https://www.instagram.com/gourmevel/" target="_blank" rel="noopener noreferrer" className="opacity-50 hover:opacity-100">
+                  <Instagram className="w-5 h-5" />
+                </a>
+              </div>
+              <p className="font-sans text-[10px] tracking-widest uppercase opacity-30">
+                &copy; 2024 Gourmevel.
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Full Screen Search Overlay */}
       <AnimatePresence>
@@ -121,7 +198,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-[#F2F1ED] text-[#111] flex flex-col items-center justify-center"
+            className="fixed inset-0 z-50 bg-[#F2F1ED] text-[#111] flex flex-col items-center justify-center pointer-events-auto"
           >
             <button 
               onClick={() => setIsSearchOpen(false)}
