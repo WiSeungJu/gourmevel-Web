@@ -27,9 +27,9 @@ export default function Footer() {
             <div>
               <h3 className="font-sans text-xs font-bold tracking-[0.2em] uppercase text-black mb-6">Explore</h3>
               <ul className="space-y-4 font-serif text-black/70">
-                <li><Link href="/reviews" className="hover:text-black transition-colors">Fine Dining</Link></li>
-                <li><Link href="/essays" className="hover:text-black transition-colors">Essays</Link></li>
                 <li><Link href="/about" className="hover:text-black transition-colors">About</Link></li>
+                <li><Link href="/stories" className="hover:text-black transition-colors">Stories</Link></li>
+                <li><Link href="/reviews" className="hover:text-black transition-colors">Reviews</Link></li>
               </ul>
             </div>
 
@@ -57,7 +57,7 @@ export default function Footer() {
                 <span className="font-sans font-bold text-black/70 mr-2">사업자등록번호</span> 342-15-02376
               </p>
               <p>
-                <span className="font-sans font-bold text-black/70 mr-2">주소</span> 서울특별시 서대문구 가재울미래로 2, 114동 2102호
+                <span className="font-sans font-bold text-black/70 mr-2">주소</span> 서울특별시 서대문구 가재울미래로 2
               </p>
               <p>
                 <span className="font-sans font-bold text-black/70 mr-2">이메일</span> gourmevel@gmail.com
