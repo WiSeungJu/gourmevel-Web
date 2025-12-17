@@ -1,20 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send, CheckCircle2, Loader2 } from "lucide-react";
+import emailjs from "@emailjs/browser";
 
 export default function ContactPage() {
-  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [selectedType, setSelectedType] = useState('일반 문의');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formRef.current) return;
+
     setFormStatus('submitting');
-    setTimeout(() => setFormStatus('success'), 1500);
+
+    try {
+      await emailjs.sendForm(
+        'service_hspd6vk',  // Service ID
+        'template_otz5a9n', // Template ID
+        formRef.current,
+        'lPO193BxNbmlVsd8V' // Public Key
+      );
+      setFormStatus('success');
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setFormStatus('error');
+      alert('메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    }
   };
 
   const contactTypes = [
@@ -108,13 +126,14 @@ export default function ContactPage() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-10">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-10">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     <div className="space-y-4 group">
                       <label htmlFor="name" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">이름</label>
                       <input 
                         type="text" 
                         id="name" 
+                        name="name" // EmailJS needs name attribute
                         required
                         className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary placeholder-brand-primary/10"
                         placeholder="성함"
@@ -125,6 +144,7 @@ export default function ContactPage() {
                       <input 
                         type="email" 
                         id="email" 
+                        name="email" // EmailJS needs name attribute
                         required
                         className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary placeholder-brand-primary/10"
                         placeholder="email@address.com"
@@ -137,6 +157,7 @@ export default function ContactPage() {
                     <input 
                       type="text" 
                       id="company" 
+                      name="company" // EmailJS needs name attribute
                       className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary placeholder-brand-primary/10"
                       placeholder="레스토랑 또는 회사명"
                     />
@@ -192,9 +213,10 @@ export default function ContactPage() {
                       )}
                     </AnimatePresence>
                     
-                    {/* Hidden Select for Form Submission logic if needed later */}
+                    {/* Hidden Select for Form Submission logic */}
                     <select 
-                      id="type" 
+                      id="type"
+                      name="type" // EmailJS needs name attribute
                       value={selectedType}
                       onChange={(e) => setSelectedType(e.target.value)}
                       className="hidden"
@@ -203,12 +225,15 @@ export default function ContactPage() {
                         <option key={type} value={type}>{type}</option>
                       ))}
                     </select>
+                    {/* Also hidden input for fallback to ensure value is sent */}
+                    <input type="hidden" name="type" value={selectedType} />
                   </div>
 
                   <div className="space-y-4 group">
                     <label htmlFor="message" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">메시지</label>
                     <textarea 
                       id="message" 
+                      name="message" // EmailJS needs name attribute
                       required
                       rows={4}
                       className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary placeholder-brand-primary/10 resize-none"
@@ -226,8 +251,17 @@ export default function ContactPage() {
                       disabled={formStatus === 'submitting'}
                       className="group inline-flex items-center gap-4 bg-brand-primary text-brand-beige px-10 py-5 text-xs font-sans font-bold tracking-[0.2em] uppercase hover:bg-brand-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:pr-8"
                     >
-                      {formStatus === 'submitting' ? '전송 중...' : '메시지 보내기'}
-                      <Send className="w-4 h-4 text-brand-secondary group-hover:translate-x-2 transition-transform" />
+                      {formStatus === 'submitting' ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          전송 중...
+                        </>
+                      ) : (
+                        <>
+                          메시지 보내기
+                          <Send className="w-4 h-4 text-brand-secondary group-hover:translate-x-2 transition-transform" />
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>
