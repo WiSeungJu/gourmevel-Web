@@ -71,7 +71,7 @@ export default function Header() {
 
           {/* Center Section: Logo */}
           <div className={`flex justify-center ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'} absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0`}>
-            <Link href="/" className="block relative w-24 md:w-32 hover:opacity-70 transition-opacity">
+            <Link href="/" className="block relative w-24 md:w-32 hover:opacity-70 transition-opacity pointer-events-auto">
                {/* 로고: 항상 검정색 (원본이 흰색이면 invert 필요) */}
                <img 
                  src="/logo.png" 
@@ -86,13 +86,13 @@ export default function Header() {
              <div className="hidden md:flex items-center gap-8">
                <div className="flex gap-6">
                  {menuItems.slice(0, 3).map((item) => (
-                    <Link 
-                      key={item.href}
-                      href={item.href} 
-                      className="font-sans text-[10px] tracking-[0.2em] uppercase hover:underline underline-offset-4 decoration-1"
-                    >
-                      {item.label}
-                    </Link>
+                   <Link 
+                     key={item.href}
+                     href={item.href} 
+                     className="font-sans text-[10px] tracking-[0.2em] uppercase hover:underline underline-offset-4 decoration-1 pointer-events-auto"
+                   >
+                     {item.label}
+                   </Link>
                  ))}
                </div>
                
@@ -100,29 +100,29 @@ export default function Header() {
                <div className="w-[1px] h-3 bg-black opacity-30" />
 
                <div className="flex items-center gap-6">
-                 <button 
-                   onClick={() => setIsSearchOpen(true)}
-                   className="hover:opacity-70 transition-opacity"
-                 >
-                   <Search className="w-4 h-4" />
-                 </button>
-                 <a 
-                   href="https://www.instagram.com/gourmevel/" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   className="hover:opacity-70 transition-opacity"
-                 >
-                   <Instagram className="w-4 h-4" />
-                 </a>
-               </div>
+                <button 
+                  onClick={() => setIsSearchOpen(true)}
+                  className="hover:opacity-70 transition-opacity pointer-events-auto"
+                >
+                  <Search className="w-4 h-4" />
+                </button>
+                <a 
+                  href="https://www.instagram.com/gourmevel/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:opacity-70 transition-opacity pointer-events-auto"
+                >
+                  <Instagram className="w-4 h-4" />
+                </a>
+              </div>
 
-               {/* Styled Contact Button: 항상 검정 테두리 */}
-               <Link 
-                 href="/contact" 
-                 className="font-sans text-[10px] tracking-[0.2em] uppercase border border-black px-6 py-2 hover:bg-black hover:text-white transition-all duration-300"
-               >
-                 Contact
-               </Link>
+              {/* Styled Contact Button: 항상 검정 테두리 */}
+              <Link 
+                href="/contact" 
+                className="font-sans text-[10px] tracking-[0.2em] uppercase border border-black px-6 py-2 hover:bg-black hover:text-white transition-all duration-300 pointer-events-auto"
+              >
+                Contact
+              </Link>
              </div>
              
              {/* Mobile Icons */}
