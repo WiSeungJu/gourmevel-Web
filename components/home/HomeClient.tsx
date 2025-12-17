@@ -48,11 +48,11 @@ export default function HomeClient({
 
       <main>
         {/* 1. Intro Hero Section: Abstract Art Motion (Original) */}
-        <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-[#F2F1ED]">
+        <section className="relative h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-[#F2F1ED]">
           
           {/* Abstract Liquid Shape */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-             <div className="relative w-[40vw] h-[40vw] min-w-[300px] min-h-[300px]">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-visible">
+             <div className="relative w-[80vw] h-[80vw] md:w-[40vw] md:h-[40vw] min-w-[280px] min-h-[280px]">
                <svg className="absolute w-0 h-0">
                  <filter id="liquid-filter">
                    <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="warp">
