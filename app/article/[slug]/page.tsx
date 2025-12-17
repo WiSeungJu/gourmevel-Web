@@ -24,7 +24,9 @@ export default async function ArticlePage({ params }: PageProps) {
     mainImage,
     categories,
     publishedAt,
-    body,
+    categories,
+    publishedAt,
+    content,
     author
   }`;
 
@@ -35,34 +37,37 @@ export default async function ArticlePage({ params }: PageProps) {
     title: "The Art of Fermentation",
     subtitle: "시간이 빚어내는 미각의 깊이에 대하여",
     categories: ["Essay"],
-    publishedAt: new Date().toISOString(),
+    publishedAt: "2024-03-15T09:00:00.000Z",
     author: "Gourmevel",
     mainImage: null, // Image 컴포넌트에서 처리
-    body: [
+    content: [ // 새로운 구조의 더미 데이터
       {
         _key: "1",
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "진정한 맛은 시간 속에서 완성됩니다. 우리는 종종 빠름을 미덕으로 여기는 세상에 살고 있지만, 미식의 세계에서만큼은 기다림이 곧 예술이 되기도 합니다." }]
+        layout: "top",
+        text: [
+          {
+            _type: "block",
+            style: "normal",
+            children: [{ _type: "span", text: "진정한 맛은 시간 속에서 완성됩니다. 우리는 종종 빠름을 미덕으로 여기는 세상에 살고 있지만, 미식의 세계에서만큼은 기다림이 곧 예술이 되기도 합니다." }]
+          }
+        ]
       },
       {
         _key: "2",
-        _type: "block",
-        style: "h2",
-        children: [{ _type: "span", text: "기다림의 미학" }]
-      },
-      {
-        _key: "3",
-        _type: "block",
-        style: "normal",
-        children: [{ _type: "span", text: "발효는 단순히 식재료를 보존하는 기술을 넘어, 새로운 차원의 맛을 창조하는 과정입니다. 셰프들은 이 보이지 않는 미생물과의 대화를 통해 식탁 위에 놀라운 이야기를 펼쳐냅니다." }]
-      },
-       {
-        _key: "4",
-        _type: "block",
-        style: "blockquote",
-        children: [{ _type: "span", text: "요리는 자연이 주는 재료에 인간의 시간과 정성을 더하는 행위입니다." }]
-      },
+        layout: "top",
+        text: [
+           {
+            _type: "block",
+            style: "h3",
+            children: [{ _type: "span", text: "기다림의 미학" }]
+          },
+          {
+            _type: "block",
+            style: "normal",
+            children: [{ _type: "span", text: "발효는 단순히 식재료를 보존하는 기술을 넘어, 새로운 차원의 맛을 창조하는 과정입니다." }]
+          }
+        ]
+      }
     ]
   };
 
@@ -133,7 +138,7 @@ export default async function ArticlePage({ params }: PageProps) {
           </div>
 
           {/* Content */}
-          <ArticleContent content={data.body} />
+          <ArticleContent content={data.content || data.body} />
           
           {/* Article Footer */}
           <div className="mt-32 pt-12 border-t border-black/10 text-center">

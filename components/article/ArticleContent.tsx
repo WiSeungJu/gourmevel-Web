@@ -64,9 +64,47 @@ const components: PortableTextComponents = {
 };
 
 export default function ArticleContent({ content }: { content: any }) {
+  if (!content || !Array.isArray(content)) return null;
+
+  // 기존 PortableText 방식인지 확인 (첫 번째 요소가 block이거나 image인 경우)
+  const isLegacyBody = content[0]?._type === 'block' || content[0]?._type === 'image';
+
+  if (isLegacyBody) {
+    return (
+      <div className="prose prose-lg max-w-none">
+        <PortableText value={content} components={components} />
+      </div>
+    );
+  }
+
+  // 새로운 섹션 기반 레이아웃 (사진 + 글 고정 틀)
   return (
-    <div className="prose prose-lg max-w-none">
-      <PortableText value={content} components={components} />
+    <div className="flex flex-col gap-24">
+      {content.map((section: any) => {
+        // layout에 따라 클래스 조정 가능 (현재는 기본 상하 배치)
+        return (
+          <section key={section._key} className="flex flex-col gap-8">
+            {/* 이미지 영역 */}
+            {section.image && (
+              <figure className="relative w-full aspect-[16/10] bg-gray-100 overflow-hidden">
+                <Image
+                  src={urlFor(section.image).url()}
+                  alt={section.image.alt || ""}
+                  fill
+                  className="object-cover"
+                />
+              </figure>
+            )}
+            
+            {/* 텍스트 영역 */}
+            {section.text && (
+              <div className="prose prose-lg max-w-none">
+                <PortableText value={section.text} components={components} />
+              </div>
+            )}
+          </section>
+        );
+      })}
     </div>
   );
 }
