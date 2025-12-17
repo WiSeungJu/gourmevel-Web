@@ -82,7 +82,7 @@ export default function Header() {
           </div>
 
           {/* Right Section: Navigation & CTA */}
-          <nav className={`flex justify-end items-center ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'}`}>
+          <nav className={`flex justify-end items-center relative z-10 ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'}`}>
              <div className="hidden md:flex items-center gap-8">
                <div className="flex gap-6">
                  {menuItems.slice(0, 3).map((item) => (
