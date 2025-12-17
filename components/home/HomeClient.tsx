@@ -25,57 +25,6 @@ interface HomeClientProps {
   allArticles?: Article[];
 }
 
-// Fallback Data
-const DUMMY_ARTICLE: Article = {
-  _id: "dummy-1",
-  title: "The Art of Fermentation",
-  subtitle: "시간이 빚어내는 미각의 깊이에 대하여",
-  slug: { current: "art-of-fermentation" },
-  mainImage: {
-    asset: {
-      url: "https://images.unsplash.com/photo-1542129202-e2c72b216124?q=80&w=2692&auto=format&fit=crop"
-    }
-  },
-  categories: ["Essay"],
-  publishedAt: "2024-03-15T09:00:00.000Z"
-};
-
-const DUMMY_TOP_ARTICLES: Article[] = [
-  {
-    _id: "dummy-2",
-    title: "Seoul's Hidden Gems",
-    subtitle: "골목길에 숨겨진 미식의 보물창고",
-    slug: { current: "seoul-hidden-gems" },
-    mainImage: {
-      asset: { url: "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=2940&auto=format&fit=crop" }
-    },
-    categories: ["Guide"],
-    publishedAt: "2024-03-10T09:00:00.000Z"
-  },
-  {
-    _id: "dummy-3",
-    title: "Chef's Table: Mingles",
-    subtitle: "강민구 셰프가 말하는 한식의 미래",
-    slug: { current: "chefs-table-mingles" },
-    mainImage: {
-      asset: { url: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2874&auto=format&fit=crop" }
-    },
-    categories: ["Interview"],
-    publishedAt: "2024-03-05T09:00:00.000Z"
-  },
-  {
-    _id: "dummy-4",
-    title: "Modern Dining Trends",
-    subtitle: "2024년 파인 다이닝의 새로운 흐름",
-    slug: { current: "modern-dining-trends" },
-    mainImage: {
-      asset: { url: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2670&auto=format&fit=crop" }
-    },
-    categories: ["Trend"],
-    publishedAt: "2024-03-01T09:00:00.000Z"
-  }
-];
-
 export default function HomeClient({ 
   recentArticle = null, 
   topArticles = [], 
@@ -87,13 +36,8 @@ export default function HomeClient({
     offset: ["start start", "end end"]
   });
 
-  // Use dummy data if no real data
-  const mainArticle = recentArticle || DUMMY_ARTICLE;
-  const topPicks = topArticles.length > 0 ? topArticles : DUMMY_TOP_ARTICLES;
-  const storyList = allArticles.length > 0 ? allArticles : DUMMY_TOP_ARTICLES; 
-
   const getImageUrl = (image: any) => {
-    if (!image) return "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2670&auto=format&fit=crop";
+    if (!image) return undefined;
     if (image.asset?.url) return image.asset.url;
     return urlFor(image).width(1600).url();
   };
@@ -159,119 +103,129 @@ export default function HomeClient({
 
 
         {/* 2. Latest Feature (Full Width Image) */}
-        <section className="relative w-full h-[80vh] overflow-hidden">
-          <div className="absolute inset-0">
-            <Image
-              src={getImageUrl(mainArticle.mainImage)}
-              alt={mainArticle.title}
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-black/30" />
-          </div>
-          <div className="relative h-full flex items-center justify-center text-center px-6">
-            <div className="text-white max-w-4xl">
-              <span className="font-sans text-xs tracking-[0.3em] uppercase border border-white/40 px-4 py-2 mb-8 inline-block backdrop-blur-sm">
-                Latest Story
-              </span>
-              <h2 className="font-display text-5xl md:text-7xl lg:text-8xl mb-8 leading-tight">
-                {mainArticle.title}
-              </h2>
-              <a 
-                href={`/article/${mainArticle.slug.current}`}
-                className="inline-flex items-center gap-2 font-serif text-xl border-b border-white/50 pb-1 hover:border-white transition-colors"
-              >
-                Read Article <ArrowUpRight className="w-5 h-5" />
-              </a>
+        {recentArticle && (
+          <section className="relative w-full h-[80vh] overflow-hidden">
+            <div className="absolute inset-0">
+              {getImageUrl(recentArticle.mainImage) && (
+                <Image
+                  src={getImageUrl(recentArticle.mainImage)}
+                  alt={recentArticle.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              )}
+              <div className="absolute inset-0 bg-black/30" />
             </div>
-          </div>
-        </section>
+            <div className="relative h-full flex items-center justify-center text-center px-6">
+              <div className="text-white max-w-4xl">
+                <span className="font-sans text-xs tracking-[0.3em] uppercase border border-white/40 px-4 py-2 mb-8 inline-block backdrop-blur-sm">
+                  Latest Story
+                </span>
+                <h2 className="font-display text-5xl md:text-7xl lg:text-8xl mb-8 leading-tight">
+                  {recentArticle.title}
+                </h2>
+                <a 
+                  href={`/article/${recentArticle.slug.current}`}
+                  className="inline-flex items-center gap-2 font-serif text-xl border-b border-white/50 pb-1 hover:border-white transition-colors"
+                >
+                  Read Article <ArrowUpRight className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </section>
+        )}
 
 
         {/* 3. Top Picks (Grid) */}
-        <section className="py-32 px-6 md:px-12 max-w-screen-2xl mx-auto bg-[#F2F1ED]">
-          <div className="flex items-end justify-between mb-20">
-            <h2 className="font-display text-4xl md:text-5xl text-black">Top Picks</h2>
-            <div className="hidden md:block w-full max-w-xs h-[1px] bg-black/10 mb-4 ml-8" />
-          </div>
+        {topArticles && topArticles.length > 0 && (
+          <section className="py-32 px-6 md:px-12 max-w-screen-2xl mx-auto bg-[#F2F1ED]">
+            <div className="flex items-end justify-between mb-20">
+              <h2 className="font-display text-4xl md:text-5xl text-black">Top Picks</h2>
+              <div className="hidden md:block w-full max-w-xs h-[1px] bg-black/10 mb-4 ml-8" />
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16">
-            {topPicks.map((article, idx) => (
-              <motion.div 
-                key={article._id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="group cursor-pointer"
-              >
-                <div className="relative aspect-[4/5] mb-8 overflow-hidden bg-gray-200">
-                  <Image
-                    src={getImageUrl(article.mainImage)}
-                    alt={article.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale-[20%] group-hover:grayscale-0"
-                  />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1">
-                    <span className="font-sans text-[10px] tracking-widest uppercase text-black">
-                      {article.categories?.[0] || 'Story'}
-                    </span>
-                  </div>
-                </div>
-                
-                <h3 className="font-display text-2xl md:text-3xl mb-3 group-hover:italic transition-all">
-                  {article.title}
-                </h3>
-                <p className="font-serif text-black/60 line-clamp-2 leading-relaxed">
-                  {article.subtitle}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-
-        {/* 4. All Stories (List) */}
-        <section className="py-20 px-6 md:px-12 bg-white border-t border-black/5">
-          <div className="max-w-screen-2xl mx-auto">
-            <h2 className="font-sans text-xs tracking-[0.2em] uppercase text-black/40 mb-16">All Stories</h2>
-
-            <div className="divide-y divide-black/10 border-t border-black/10 border-b">
-              {storyList.map((article) => (
-                <article 
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16">
+              {topArticles.map((article, idx) => (
+                <motion.div 
                   key={article._id}
-                  className="group py-12 flex flex-col md:flex-row md:items-center justify-between gap-8 hover:bg-gray-50 transition-colors px-4 -mx-4 cursor-pointer"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  className="group cursor-pointer"
                 >
-                  <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
-                    <span className="font-sans text-xs tracking-widest text-black/40 w-24">
-                      {new Date(article.publishedAt).toLocaleDateString('ko-KR')}
-                    </span>
-                    <div>
-                      <h3 className="font-display text-3xl md:text-4xl mb-2 group-hover:text-brand-primary transition-colors">
-                        {article.title}
-                      </h3>
-                      <p className="font-serif text-black/60">
-                        {article.subtitle}
-                      </p>
+                  <div className="relative aspect-[4/5] mb-8 overflow-hidden bg-gray-200">
+                    {getImageUrl(article.mainImage) && (
+                      <Image
+                        src={getImageUrl(article.mainImage)}
+                        alt={article.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale-[20%] group-hover:grayscale-0"
+                      />
+                    )}
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1">
+                      <span className="font-sans text-[10px] tracking-widest uppercase text-black">
+                        {article.categories?.[0] || 'Story'}
+                      </span>
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="font-sans text-[10px] tracking-widest uppercase">Read</span>
-                    <ArrowUpRight className="w-4 h-4" />
-                  </div>
-                </article>
+                  <h3 className="font-display text-2xl md:text-3xl mb-3 group-hover:italic transition-all">
+                    {article.title}
+                  </h3>
+                  <p className="font-serif text-black/60 line-clamp-2 leading-relaxed">
+                    {article.subtitle}
+                  </p>
+                </motion.div>
               ))}
             </div>
+          </section>
+        )}
 
-            <div className="mt-20 text-center">
-              <button className="font-sans text-xs tracking-[0.2em] uppercase border border-black/20 px-8 py-4 hover:bg-black hover:text-white transition-all">
-                Load More
-              </button>
+
+        {/* 4. All Stories (List) */}
+        {allArticles && allArticles.length > 0 && (
+          <section className="py-20 px-6 md:px-12 bg-white border-t border-black/5">
+            <div className="max-w-screen-2xl mx-auto">
+              <h2 className="font-sans text-xs tracking-[0.2em] uppercase text-black/40 mb-16">All Stories</h2>
+
+              <div className="divide-y divide-black/10 border-t border-black/10 border-b">
+                {allArticles.map((article) => (
+                  <article 
+                    key={article._id}
+                    className="group py-12 flex flex-col md:flex-row md:items-center justify-between gap-8 hover:bg-gray-50 transition-colors px-4 -mx-4 cursor-pointer"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
+                      <span className="font-sans text-xs tracking-widest text-black/40 w-24">
+                        {new Date(article.publishedAt).toLocaleDateString('ko-KR')}
+                      </span>
+                      <div>
+                        <h3 className="font-display text-3xl md:text-4xl mb-2 group-hover:text-brand-primary transition-colors">
+                          {article.title}
+                        </h3>
+                        <p className="font-serif text-black/60">
+                          {article.subtitle}
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="font-sans text-[10px] tracking-widest uppercase">Read</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              <div className="mt-20 text-center">
+                <button className="font-sans text-xs tracking-[0.2em] uppercase border border-black/20 px-8 py-4 hover:bg-black hover:text-white transition-all">
+                  Load More
+                </button>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
 
       <Footer />
