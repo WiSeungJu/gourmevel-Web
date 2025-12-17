@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   keywords: ["Gourmevel", "고메블", "미식", "파인다이닝", "위승주"],
   authors: [{ name: "위승주" }],
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/gourmevel_logo.png",
+    apple: "/gourmevel_logo.png",
   },
   openGraph: {
     title: "Gourmevel",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/logo.png",
+        url: "/gourmevel_logo.png",
         width: 1200,
         height: 630,
         alt: "Gourmevel",
