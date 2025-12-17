@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
+import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -89,7 +90,7 @@ export default function AboutPage() {
                className="w-full h-full bg-black rounded-full opacity-10 mix-blend-multiply blur-3xl"
                style={{ filter: "url(#liquid-filter-about)" }}
              />
-
+             
              {/* Centered Text inside the Shape */}
              <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 pointer-events-none">
                <motion.h3 
@@ -222,6 +223,65 @@ export default function AboutPage() {
           </section>
 
         </div>
+
+        {/* 04. Editor's Note (New Section) */}
+        <section className="bg-white py-32 px-6 md:px-12 border-t border-black/10">
+          <div className="max-w-screen-lg mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col md:flex-row gap-12 md:gap-24 items-start"
+            >
+              {/* Image Area */}
+              <div className="w-full md:w-5/12 aspect-[3/4] bg-gray-100 relative">
+                <Image
+                  src="/profile.jpg"
+                  alt="Editor Portrait"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Text Area */}
+              <div className="w-full md:w-7/12 pt-4">
+                <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-black/40 mb-8 block">
+                  Editor's Note
+                </span>
+                <h3 className="font-display text-3xl md:text-4xl mb-8 leading-snug">
+                  미식은 오감으로 즐기는<br/>
+                  가장 고차원적인 예술입니다.
+                </h3>
+                <div className="font-serif text-black/70 space-y-6 leading-relaxed mb-12">
+                  <p>
+                    저에게 미식(Gastronomy)은 단순히 배를 채우는 행위가 아닙니다. 
+                    접시 위에 펼쳐진 시각적 미학, 코끝을 스치는 섬세한 향, 혀끝에서 느껴지는 다채로운 맛과 질감, 
+                    그리고 공간을 채우는 음악의 선율까지. 오감이 완벽하게 조화를 이룰 때 비로소 완성되는 고차원적인 예술이라고 믿습니다.
+                  </p>
+                  <p>
+                    Gourmevel은 겉으로만 화려한 유행을 좇지 않습니다. 
+                    대신 남들과는 다른 시선으로, 저만의 기준에서 진정으로 마음을 움직였던 경험들을 수집합니다.
+                  </p>
+                  <p>
+                    이곳에 기록된 이야기들을 통해, 미식이 주는 순수한 즐거움과 그 안에 담긴 아름다움이 
+                    여러분께도 온전히 전해지기를 바랍니다.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-4 opacity-80">
+                  <span className="font-display text-xl italic">
+                    Seungju Wi 
+                    <span className="text-sm font-serif not-italic text-black/60 ml-2">위승주</span>
+                  </span>
+                  <span className="w-8 h-[1px] bg-black/30" />
+                  <span className="font-sans text-xs tracking-widest uppercase text-black/50">Director</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
       </main>
 
       <Footer />
