@@ -37,7 +37,7 @@ const DUMMY_ARTICLE: Article = {
     }
   },
   categories: ["Essay"],
-  publishedAt: new Date().toISOString()
+  publishedAt: "2024-03-15T09:00:00.000Z"
 };
 
 const DUMMY_TOP_ARTICLES: Article[] = [
@@ -50,7 +50,7 @@ const DUMMY_TOP_ARTICLES: Article[] = [
       asset: { url: "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=2940&auto=format&fit=crop" }
     },
     categories: ["Guide"],
-    publishedAt: new Date().toISOString()
+    publishedAt: "2024-03-10T09:00:00.000Z"
   },
   {
     _id: "dummy-3",
@@ -61,7 +61,7 @@ const DUMMY_TOP_ARTICLES: Article[] = [
       asset: { url: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2874&auto=format&fit=crop" }
     },
     categories: ["Interview"],
-    publishedAt: new Date().toISOString()
+    publishedAt: "2024-03-05T09:00:00.000Z"
   },
   {
     _id: "dummy-4",
@@ -72,7 +72,7 @@ const DUMMY_TOP_ARTICLES: Article[] = [
       asset: { url: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2670&auto=format&fit=crop" }
     },
     categories: ["Trend"],
-    publishedAt: new Date().toISOString()
+    publishedAt: "2024-03-01T09:00:00.000Z"
   }
 ];
 
@@ -126,14 +126,6 @@ export default function HomeClient({
                  style={{ filter: "url(#liquid-filter)" }}
                />
                
-               <motion.div 
-                 animate={{ 
-                   scale: [1, 1.1, 1],
-                   rotate: [0, 90, 0]
-                 }}
-                 transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] border-[1px] border-black/20 rounded-full"
-               />
              </div>
           </div>
 
@@ -253,7 +245,7 @@ export default function HomeClient({
                 >
                   <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
                     <span className="font-sans text-xs tracking-widest text-black/40 w-24">
-                      {new Date(article.publishedAt).toLocaleDateString()}
+                      {new Date(article.publishedAt).toLocaleDateString('ko-KR')}
                     </span>
                     <div>
                       <h3 className="font-display text-3xl md:text-4xl mb-2 group-hover:text-brand-primary transition-colors">
