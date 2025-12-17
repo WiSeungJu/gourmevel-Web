@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Inter, Noto_Serif_KR } from "next/font/google";
 import SmoothScroll from "@/components/ui/SmoothScroll";
+import RightClickGuard from "@/components/ui/RightClickGuard";
 import "./globals.css";
 
 const bodoni = Bodoni_Moda({
@@ -26,6 +27,25 @@ const notoSerifKR = Noto_Serif_KR({
 export const metadata: Metadata = {
   title: "Gourmevel",
   description: "Taste The Extraordinary.",
+  keywords: ["Gourmevel", "고메블", "미식", "파인다이닝", "위승주"],
+  authors: [{ name: "위승주" }],
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
+  openGraph: {
+    title: "Gourmevel",
+    description: "Taste The Extraordinary.",
+    type: "website",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Gourmevel",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -38,6 +58,7 @@ export default function RootLayout({
       <body
         className={`${bodoni.variable} ${inter.variable} ${notoSerifKR.variable} antialiased bg-white text-black overflow-x-hidden`}
       >
+        <RightClickGuard />
         <SmoothScroll />
         {children}
       </body>
