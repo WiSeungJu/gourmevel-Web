@@ -68,24 +68,26 @@ export default function ContactPage() {
             </motion.h1>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
             
             {/* Left Column: Info & Context */}
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="lg:col-span-5 space-y-12"
+              className="lg:col-span-5 space-y-12 text-center lg:text-left"
             >
-              <div className="relative">
-                <div className="absolute top-0 left-0 w-12 h-[1px] bg-brand-primary/20" />
-                <div className="font-serif text-lg md:text-2xl text-brand-primary/80 leading-relaxed pt-8">
-                  <span className="block whitespace-nowrap">&ldquo;숨겨진 맛집으로의 초대든, 창의적인 협업 제안이든,</span>
-                  <span className="block whitespace-nowrap">우리는 언제나 들을 준비가 되어 있습니다.&rdquo;</span>
+              <div className="relative inline-block lg:block">
+                <div className="hidden lg:block absolute top-0 left-0 w-12 h-[1px] bg-brand-primary/20" />
+                <div className="font-serif text-lg md:text-2xl text-brand-primary/80 leading-relaxed pt-0 lg:pt-8">
+                  <span className="block whitespace-nowrap">&ldquo;숨겨진 맛집으로의 초대든,</span>
+                  <span className="block whitespace-nowrap">창의적인 협업 제안이든,</span>
+                  <span className="block whitespace-nowrap mt-2">우리는 언제나 들을</span>
+                  <span className="block whitespace-nowrap">준비가 되어 있습니다.&rdquo;</span>
                 </div>
               </div>
 
-              <div className="space-y-8 pt-8">
+              <div className="space-y-8 pt-4 lg:pt-8 flex flex-col items-center lg:items-start">
                 <div className="group">
                   <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-2">일반 문의</p>
                   <a href="mailto:gourmevel@gmail.com" className="font-serif text-2xl text-brand-primary hover:text-brand-secondary transition-colors italic">

@@ -54,7 +54,7 @@ export default function Header() {
             : 'bg-transparent py-6 pointer-events-none'
         } text-black`}
       >
-        <div className="w-full px-6 md:px-12 grid grid-cols-3 items-center">
+        <div className="w-full px-6 md:px-12 flex justify-between md:grid md:grid-cols-3 items-center">
           
           {/* Left Section: Info (Desktop) / Menu (Mobile) */}
           <div className={`flex justify-start items-center ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'}`}>
@@ -70,7 +70,7 @@ export default function Header() {
           </div>
 
           {/* Center Section: Logo */}
-          <div className={`flex justify-center ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'}`}>
+          <div className={`flex justify-center ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'} absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0`}>
             <Link href="/" className="block relative w-24 md:w-32 hover:opacity-70 transition-opacity">
                {/* 로고: 항상 검정색 (원본이 흰색이면 invert 필요) */}
                <img 

@@ -124,7 +124,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeInUp}
-              className="order-2 md:order-1 relative h-64 md:h-80 flex items-center justify-center"
+              className="order-1 md:order-1 relative h-64 md:h-80 flex items-center justify-center"
             >
                {/* Abstract Diffusion Line Art */}
                <svg viewBox="0 0 200 200" className="w-full h-full opacity-60">
@@ -146,7 +146,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeInUp}
-              className="order-1 md:order-2"
+              className="order-2 md:order-2"
             >
               <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-black/40 mb-4 block">01. Resonance</span>
               <h2 className="font-display text-4xl md:text-5xl mb-8">맛의 공명</h2>
@@ -166,6 +166,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeInUp}
+              className="order-2 md:order-1"
             >
               <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-black/40 mb-4 block">02. Harmony</span>
               <h2 className="font-display text-4xl md:text-5xl mb-8">문화의 융합</h2>
@@ -181,7 +182,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeInUp}
-              className="relative"
+              className="relative order-1 md:order-2"
             >
                 {/* Abstract Line Art representing blending */}
                 <svg viewBox="0 0 200 200" className="w-full h-full opacity-60">
@@ -200,7 +201,7 @@ export default function AboutPage() {
                viewport={{ once: true }}
                transition={{ duration: 0.8, ease: "easeOut" }}
                variants={fadeInUp}
-               className="order-2 md:order-1 flex justify-center"
+               className="order-1 md:order-1 flex justify-center"
              >
                 <div className="w-40 h-40 border border-black/80 rotate-45" />
              </motion.div>
@@ -210,7 +211,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeInUp}
-              className="order-1 md:order-2"
+              className="order-2 md:order-2"
             >
               <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-black/40 mb-4 block">03. Essence</span>
               <h2 className="font-display text-4xl md:text-5xl mb-8">본질의 탐구</h2>
