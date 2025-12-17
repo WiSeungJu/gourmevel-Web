@@ -5,9 +5,9 @@ export default function Footer() {
   return (
     <footer className="bg-[#F3F3F3] text-black pt-24 pb-12 border-t border-black/5">
       <div className="max-w-screen-xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-16 mb-20">
-          <div className="max-w-md">
-            <div className="mb-8 w-48">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-12 md:gap-16 mb-16 md:mb-20 text-center md:text-left">
+          <div className="max-w-md flex flex-col items-center md:items-start">
+            <div className="mb-8 w-40 md:w-48">
                {/* Footer 배경이 밝으므로 invert 적용하여 검은색 로고로 변경 */}
               <img 
                 src="/logo.png" 
@@ -15,15 +15,15 @@ export default function Footer() {
                 className="w-full h-auto object-contain opacity-90 filter invert"
               />
             </div>
-            <p className="font-serif text-black/60 leading-relaxed text-lg">
+            <p className="font-serif text-black/60 leading-relaxed text-base md:text-lg">
               &quot;Taste The Extraordinary.&quot; <br/>
-              <span className="text-sm mt-2 block opacity-70">
+              <span className="text-xs md:text-sm mt-2 block opacity-70">
                 평범한 일상 속 특별한 미식 경험을 찾는 당신을 위한 가이드.
               </span>
             </p>
           </div>
           
-          <div className="flex gap-16">
+          <div className="flex justify-center gap-12 md:gap-16 w-full md:w-auto">
             <div>
               <h3 className="font-sans text-xs font-bold tracking-[0.2em] uppercase text-black mb-6">Explore</h3>
               <ul className="space-y-4 font-serif text-black/70">
@@ -45,7 +45,7 @@ export default function Footer() {
 
         {/* 사업자 정보 및 Copyright 섹션 */}
         <div className="pt-8 border-t border-black/5">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-8 text-center md:text-left">
             {/* 사업자 정보 */}
             <div className="text-[11px] font-serif text-black/50 leading-relaxed space-y-1">
               <p>
@@ -65,7 +65,7 @@ export default function Footer() {
             </div>
 
             {/* 링크 및 Copyright */}
-            <div className="flex flex-col items-start md:items-end gap-4">
+            <div className="flex flex-col items-center md:items-end gap-4">
               <div className="flex gap-6 font-sans text-[10px] tracking-widest uppercase text-black/60">
                 <Link href="/privacy" className="font-bold hover:text-black transition-colors">개인정보처리방침</Link>
                 <Link href="/terms" className="hover:text-black transition-colors">이용약관</Link>
