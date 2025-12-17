@@ -48,7 +48,7 @@ export default function HomeClient({
 
       <main>
         {/* 1. Intro Hero Section: Abstract Art Motion (Original) */}
-        <section className="relative h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-[#F2F1ED]">
+        <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-[#F2F1ED]">
           
           {/* Abstract Liquid Shape */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-visible">
