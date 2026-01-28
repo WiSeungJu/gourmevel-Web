@@ -11,7 +11,7 @@ export default function ContactPage() {
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [selectedType, setSelectedType] = useState('일반 문의');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  
+
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -50,7 +50,7 @@ export default function ContactPage() {
         <div className="max-w-screen-xl mx-auto">
           {/* Page Title */}
           <div className="text-center mb-24">
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -58,7 +58,7 @@ export default function ContactPage() {
             >
               Get in Touch
             </motion.p>
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -69,9 +69,9 @@ export default function ContactPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
-            
+
             {/* Left Column: Info & Context */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -94,7 +94,7 @@ export default function ContactPage() {
                     gourmevel@gmail.com
                   </a>
                 </div>
-                
+
                 <div className="group">
                   <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-2">Instagram</p>
                   <a href="https://www.instagram.com/gourmevel/" target="_blank" rel="noopener noreferrer" className="font-serif text-2xl text-brand-primary hover:text-brand-secondary transition-colors italic">
@@ -102,10 +102,22 @@ export default function ContactPage() {
                   </a>
                 </div>
               </div>
+
+              <div className="pt-8 border-t border-brand-primary/10 w-full">
+                <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-4">Media Kit</p>
+                <a href="/files/media-kit.pdf" download className="group inline-flex items-center gap-3 font-serif text-lg text-brand-primary hover:text-brand-secondary transition-colors">
+                  <span className="italic decoration-brand-primary/30 underline underline-offset-4 group-hover:decoration-brand-secondary/30">
+                    Download 2026 Media Kit
+                  </span>
+                  <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4 transition-transform group-hover:translate-y-1" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M12 4v12m0 0l-4-4m4 4l4-4m-8 8h8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+              </div>
             </motion.div>
 
             {/* Right Column: Elegant Form */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -120,7 +132,7 @@ export default function ContactPage() {
                   <p className="font-serif text-brand-primary/60 max-w-xs leading-relaxed">
                     관심 가져주셔서 감사합니다. 메시지를 확인하는 대로 곧 답변 드리겠습니다.
                   </p>
-                  <button 
+                  <button
                     onClick={() => setFormStatus('idle')}
                     className="mt-12 text-xs font-sans tracking-[0.2em] uppercase text-brand-secondary border-b border-brand-secondary/30 pb-1 hover:text-brand-primary hover:border-brand-primary transition-all"
                   >
@@ -132,9 +144,9 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     <div className="space-y-4 group">
                       <label htmlFor="name" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">이름</label>
-                      <input 
-                        type="text" 
-                        id="name" 
+                      <input
+                        type="text"
+                        id="name"
                         name="name" // EmailJS needs name attribute
                         required
                         className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary placeholder-brand-primary/10"
@@ -143,9 +155,9 @@ export default function ContactPage() {
                     </div>
                     <div className="space-y-4 group">
                       <label htmlFor="email" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">이메일</label>
-                      <input 
-                        type="email" 
-                        id="email" 
+                      <input
+                        type="email"
+                        id="email"
                         name="email" // EmailJS needs name attribute
                         required
                         className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary placeholder-brand-primary/10"
@@ -156,9 +168,9 @@ export default function ContactPage() {
 
                   <div className="space-y-4 group">
                     <label htmlFor="company" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">소속/회사</label>
-                    <input 
-                      type="text" 
-                      id="company" 
+                    <input
+                      type="text"
+                      id="company"
                       name="company" // EmailJS needs name attribute
                       className="w-full border-b border-brand-stone py-2 focus:outline-none focus:border-brand-primary transition-colors bg-transparent font-serif text-lg text-brand-primary placeholder-brand-primary/10"
                       placeholder="레스토랑 또는 회사명"
@@ -167,7 +179,7 @@ export default function ContactPage() {
 
                   <div className="space-y-4 group relative">
                     <label htmlFor="type" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">주제</label>
-                    
+
                     {/* Custom Dropdown Trigger */}
                     <button
                       type="button"
@@ -181,7 +193,7 @@ export default function ContactPage() {
                         className="text-brand-primary/30"
                       >
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1" strokeLinecap="square"/>
+                          <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1" strokeLinecap="square" />
                         </svg>
                       </motion.div>
                     </button>
@@ -204,9 +216,8 @@ export default function ContactPage() {
                                 setSelectedType(type);
                                 setIsDropdownOpen(false);
                               }}
-                              className={`w-full text-left px-6 py-4 font-serif text-lg hover:bg-brand-beige transition-colors ${
-                                selectedType === type ? 'text-brand-primary bg-brand-primary/5' : 'text-brand-primary/60'
-                              }`}
+                              className={`w-full text-left px-6 py-4 font-serif text-lg hover:bg-brand-beige transition-colors ${selectedType === type ? 'text-brand-primary bg-brand-primary/5' : 'text-brand-primary/60'
+                                }`}
                             >
                               {type}
                             </button>
@@ -214,9 +225,9 @@ export default function ContactPage() {
                         </motion.div>
                       )}
                     </AnimatePresence>
-                    
+
                     {/* Hidden Select for Form Submission logic */}
-                    <select 
+                    <select
                       id="type"
                       name="type" // EmailJS needs name attribute
                       value={selectedType}
@@ -233,8 +244,8 @@ export default function ContactPage() {
 
                   <div className="space-y-4 group">
                     <label htmlFor="message" className="text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary/40 uppercase group-focus-within:text-brand-secondary transition-colors">메시지</label>
-                    <textarea 
-                      id="message" 
+                    <textarea
+                      id="message"
                       name="message" // EmailJS needs name attribute
                       required
                       rows={4}
@@ -248,8 +259,8 @@ export default function ContactPage() {
                   </div>
 
                   <div className="pt-8 text-right">
-                    <button 
-                      type="submit" 
+                    <button
+                      type="submit"
                       disabled={formStatus === 'submitting'}
                       className="group inline-flex items-center gap-4 bg-brand-primary text-brand-beige px-10 py-5 text-xs font-sans font-bold tracking-[0.2em] uppercase hover:bg-brand-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:pr-8"
                     >
@@ -270,10 +281,10 @@ export default function ContactPage() {
               )}
             </motion.div>
           </div>
-        </div>
-      </main>
+        </div >
+      </main >
 
       <Footer />
-    </div>
+    </div >
   );
 }
