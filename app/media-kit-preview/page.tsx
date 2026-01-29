@@ -55,7 +55,9 @@ export default function MediaKitPage() {
 
                     {/* Main Title (Centered) */}
                     <div className="relative z-20 flex-1 flex flex-col items-center justify-center w-full">
-                        <h1 className="font-display text-7xl tracking-tight mb-4">GOURMEVEL</h1>
+                        <div className="relative w-96 h-24 mb-6">
+                            <Image src="/logo white.png" alt="GOURMEVEL" fill className="object-contain" priority />
+                        </div>
                         <p className="font-serif italic text-lg opacity-80">Taste the extraordinary.</p>
                     </div>
 
@@ -71,11 +73,9 @@ export default function MediaKitPage() {
                 {/* PAGE 2: CONTENTS */}
                 <section className="relative w-full aspect-[297/210] flex shadow-2xl bg-[#E5E5E5]">
 
-                    {/* Left Side: Image Placeholder (50%) */}
-                    <div className="w-1/2 relative bg-gray-300 overflow-hidden flex items-center justify-center">
-                        <div className="absolute inset-0 bg-[#d4d4d4] flex items-center justify-center">
-                            <span className="font-sans text-xs tracking-widest text-[#111]/20 uppercase font-bold">Image Placeholder</span>
-                        </div>
+                    {/* Left Side: Image (50%) */}
+                    <div className="w-1/2 relative bg-gray-300 overflow-hidden">
+                        <Image src="/Content.JPG" alt="Content Image" fill className="object-cover" />
                     </div>
 
                     {/* Right Side: Content List (50%) */}
@@ -294,9 +294,7 @@ export default function MediaKitPage() {
                 {/* PAGE 6: DINING ARCHIVE */}
                 <section className="relative w-full aspect-[297/210] bg-[#111] text-[#F2F1ED] flex shadow-2xl">
                     <div className="w-5/12 bg-gray-800 relative">
-                        <div className="absolute inset-0 flex items-center justify-center text-white/20 font-display text-5xl">
-                            DINING IMAGE
-                        </div>
+                        <Image src="/Dining.jpg" alt="Dining Archive" fill className="object-cover" />
                     </div>
                     <div className="w-7/12 p-16 flex flex-col justify-center">
                         <span className="font-sans text-xs tracking-[0.3em] opacity-40 block mb-6">04. DINING ARCHIVE</span>
@@ -333,9 +331,7 @@ export default function MediaKitPage() {
                         </div>
                     </div>
                     <div className="w-5/12 bg-gray-300 relative">
-                        <div className="absolute inset-0 flex items-center justify-center text-black/20 font-display text-5xl">
-                            SPACE IMAGE
-                        </div>
+                        <Image src="/place.jpg" alt="Space Archive" fill className="object-cover" />
                     </div>
                 </section>
 
