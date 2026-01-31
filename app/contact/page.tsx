@@ -105,7 +105,7 @@ export default function ContactPage() {
 
               <div className="pt-8 border-t border-brand-primary/10 w-full">
                 <p className="font-sans text-xs tracking-widest text-brand-primary/40 uppercase mb-4">Media Kit</p>
-                <a href="/files/media-kit.pdf" download className="group inline-flex items-center gap-3 font-serif text-lg text-brand-primary hover:text-brand-secondary transition-colors">
+                <a href="/files/Gourmevel-MediaKit.pdf" download className="group inline-flex items-center gap-3 font-serif text-lg text-brand-primary hover:text-brand-secondary transition-colors">
                   <span className="italic decoration-brand-primary/30 underline underline-offset-4 group-hover:decoration-brand-secondary/30">
                     Download 2026 Media Kit
                   </span>

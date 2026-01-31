@@ -109,6 +109,10 @@ export default function MediaKitPage() {
                                 <span className="font-sans text-sm font-bold w-12 opacity-40">06.</span>
                                 <span className="font-sans text-sm font-bold tracking-widest uppercase opacity-80 group-hover:opacity-100 transition-opacity">SERVICE</span>
                             </li>
+                            <li className="group border-b border-black/20 pb-4 flex items-baseline">
+                                <span className="font-sans text-sm font-bold w-12 opacity-40">07.</span>
+                                <span className="font-sans text-sm font-bold tracking-widest uppercase opacity-80 group-hover:opacity-100 transition-opacity">PHOTOGRAPHY</span>
+                            </li>
                         </ul>
 
                         {/* Footer */}
@@ -414,10 +418,69 @@ export default function MediaKitPage() {
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 </section>
 
-                {/* PAGE 9: CLOSING */}
+                {/* PAGE 9: PHOTOGRAPHY SERVICE */}
+                <section className="relative w-full aspect-[297/210] bg-[#F2F1ED] text-[#111] flex flex-col p-20 shadow-2xl">
+                    <div className="flex justify-between items-center mb-16">
+                        <div>
+                            <span className="font-sans text-xs tracking-[0.3em] opacity-40 block mb-4">07. PHOTOGRAPHY</span>
+                            <h2 className="font-display text-5xl">Visual Directing</h2>
+                        </div>
+                        <div className="text-right opacity-60 text-sm font-sans">
+                            <p>단순 촬영이 아닌, 브랜드의 무드를 담아냅니다.</p>
+                        </div>
+                    </div>
+
+                    <div className="flex-1 flex gap-16 items-center">
+                        {/* Left: Description */}
+                        <div className="w-1/2 space-y-12">
+                            <div>
+                                <h3 className="font-display text-3xl mb-4">Mood Of The Moment</h3>
+                                <p className="font-serif text-xl leading-relaxed opacity-80 break-keep">
+                                    &quot;숨겨진 매력을 찾아내어, 브랜드의 본질을 시각화합니다.&quot;
+                                </p>
+                                <p className="font-sans text-sm mt-4 opacity-60 leading-relaxed break-keep">
+                                    과한 보정은 오히려 실제 음식과의 괴리감을 만들어 실망을 줄 수 있습니다. 고메블은 현장에서만 느낄 수 있는 고유의 아름다움과 공기를 있는 그대로 포착하여, 브랜드가 가진 숨겨진 매력을 찾아냅니다.
+                                </p>
+                            </div>
+
+                            <div className="border border-black/10 bg-white p-8">
+                                <div className="flex justify-between items-baseline mb-6 border-b border-black/10 pb-4">
+                                    <h4 className="font-display text-2xl">Type C</h4>
+                                    <div className="text-right">
+                                        <span className="font-display text-2xl">₩ 300,000</span>
+                                        <span className="font-sans text-xs opacity-50 block mt-1">+ 출장비 별도</span>
+                                    </div>
+                                </div>
+                                <ul className="space-y-3 font-sans text-sm opacity-80">
+                                    <li className="flex items-start">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-black/20 mr-3 mt-1.5"></span>
+                                        <span><strong>10 Cuts</strong> (Gourmevel Signature Grading A-Cut)</span>
+                                    </li>
+                                    <li className="flex items-start">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-black/20 mr-3 mt-1.5"></span>
+                                        <span><strong>1 Hour</strong> 현장 촬영 및 디렉팅</span>
+                                    </li>
+                                    <li className="flex items-start">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-black/20 mr-3 mt-1.5"></span>
+                                        <span>추가 1컷당 33,000원</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        {/* Right: Abstract/Mood Image Placeholder */}
+                        <div className="w-1/2 h-full relative overflow-hidden">
+                            <Image src="/Photograpy.jpg" alt="Photography Mood" fill className="object-cover" />
+                        </div>
+                    </div>
+                </section>
+
+                {/* PAGE 10: CLOSING */}
                 <section className="relative w-full aspect-[297/210] bg-[#111] text-[#F2F1ED] flex flex-col items-center justify-center shadow-2xl">
                     <div className="text-center">
 
