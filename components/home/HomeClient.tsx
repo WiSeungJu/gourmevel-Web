@@ -8,6 +8,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { urlFor } from "@/sanity/lib/image";
 import { ArrowUpRight, Instagram } from "lucide-react";
+import { NaverPost } from "@/sanity/lib/naver";
 
 // Types
 interface Article {
@@ -29,18 +30,40 @@ interface InstaPost {
   postedAt?: string;
 }
 
+interface Photo {
+  _id: string;
+  place?: string;
+  caption?: string;
+  category?: string;
+  orientation?: string;
+  image?: any;
+  src?: string;
+}
+
 interface HomeClientProps {
   recentArticle?: Article | null;
   topArticles?: Article[];
   allArticles?: Article[];
   instaPosts?: InstaPost[];
+  naverPosts?: NaverPost[];
+  photos?: Photo[];
 }
+
+// Sanity 사진이 아직 없을 때 홈 스트립용 폴백 (보유 이미지)
+const PHOTO_FALLBACK: Photo[] = [
+  { _id: "pf1", place: "The Taste", src: "/Dining.jpg" },
+  { _id: "pf2", place: "The Atmosphere", src: "/place.jpg" },
+  { _id: "pf3", place: "Mood", src: "/Photograpy.jpg" },
+  { _id: "pf4", place: "Content", src: "/Content.JPG" },
+];
 
 export default function HomeClient({
   recentArticle = null,
   topArticles = [],
   allArticles = [],
-  instaPosts = []
+  instaPosts = [],
+  naverPosts = [],
+  photos = []
 }: HomeClientProps) {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -65,6 +88,16 @@ export default function HomeClient({
         {children}
       </Link>
     );
+
+  const photoItems = photos.length > 0 ? photos : PHOTO_FALLBACK;
+  const photoSrc = (p: Photo, w = 900) =>
+    p.src || (p.image ? p.image.asset?.url || urlFor(p.image).width(w).url() : undefined);
+
+  const fmtDate = (d: string) => {
+    if (!d) return "";
+    const t = new Date(d);
+    return isNaN(t.getTime()) ? "" : t.toLocaleDateString("ko-KR");
+  };
 
   return (
     <div ref={containerRef} className="bg-[#F2F1ED] min-h-screen selection:bg-black selection:text-[#F2F1ED]">
@@ -248,16 +281,137 @@ export default function HomeClient({
               </div>
 
               <div className="mt-20 text-center">
-                <button className="font-sans text-xs tracking-[0.2em] uppercase border border-black/20 px-8 py-4 hover:bg-black hover:text-white transition-all">
-                  Load More
-                </button>
+                <Link
+                  href="/stories"
+                  className="inline-flex items-center gap-2 font-sans text-xs tracking-[0.2em] uppercase border border-black/20 px-8 py-4 hover:bg-black hover:text-white transition-all"
+                >
+                  모든 스토리 보기 <ArrowUpRight className="w-4 h-4" />
+                </Link>
               </div>
             </div>
           </section>
         )}
 
 
-        {/* 5. Instagram (Curated) */}
+        {/* 5. Latest Reviews (Naver) */}
+        {naverPosts && naverPosts.length > 0 && (
+          <section className="py-28 md:py-36 px-6 md:px-12 bg-[#F2F1ED] border-t border-black/5">
+            <div className="max-w-screen-2xl mx-auto">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+                <div>
+                  <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-black/40 block mb-4">
+                    Dining Journal · Naver
+                  </span>
+                  <h2 className="font-display text-4xl md:text-6xl">Latest Reviews</h2>
+                </div>
+                <Link
+                  href="/reviews"
+                  className="inline-flex items-center gap-2 font-sans text-[10px] tracking-[0.2em] uppercase text-black/50 hover:text-brand-secondary transition-colors"
+                >
+                  Reviews 전체 <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">
+                {naverPosts.map((post, idx) => (
+                  <motion.a
+                    key={post.id}
+                    href={post.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: (idx % 3) * 0.08 }}
+                    className="group block"
+                  >
+                    <div className="relative aspect-[4/3] mb-5 overflow-hidden bg-brand-stone/40">
+                      {post.thumbnail ? (
+                        <img
+                          src={post.thumbnail}
+                          alt={post.title}
+                          loading="lazy"
+                          referrerPolicy="no-referrer"
+                          onError={(e) => { e.currentTarget.style.display = "none"; }}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale-[15%] group-hover:grayscale-0"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="font-display text-2xl text-black/15 italic">Gourmevel</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="font-sans text-[10px] tracking-widest uppercase text-black/40">
+                        {fmtDate(post.pubDate)}
+                      </span>
+                      <span className="font-sans text-[10px] tracking-widest uppercase text-brand-secondary/70">
+                        Naver
+                      </span>
+                    </div>
+                    <h3 className="font-display text-xl md:text-2xl leading-snug group-hover:text-brand-secondary transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+
+        {/* 6. Photography (Strip) */}
+        {photoItems.length > 0 && (
+          <section className="py-28 md:py-36 bg-white border-t border-black/5">
+            <div className="px-6 md:px-12 max-w-screen-2xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+              <div>
+                <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-black/40 block mb-4">
+                  Visual Directing
+                </span>
+                <h2 className="font-display text-4xl md:text-6xl">Photography</h2>
+              </div>
+              <Link
+                href="/photography"
+                className="inline-flex items-center gap-2 font-sans text-[10px] tracking-[0.2em] uppercase text-black/50 hover:text-brand-secondary transition-colors"
+              >
+                갤러리 전체 <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="flex gap-5 md:gap-6 overflow-x-auto px-6 md:px-12 pb-6 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {photoItems.map((p) => {
+                const src = photoSrc(p);
+                return (
+                  <Link
+                    key={p._id}
+                    href="/photography"
+                    className="group shrink-0 w-60 md:w-80 snap-start"
+                  >
+                    <div className="relative aspect-[3/4] overflow-hidden bg-brand-stone/40">
+                      {src && (
+                        <Image
+                          src={src}
+                          alt={p.place || "Gourmevel photography"}
+                          fill
+                          sizes="320px"
+                          className="object-cover transition-transform duration-700 group-hover:scale-105 grayscale-[10%] group-hover:grayscale-0"
+                        />
+                      )}
+                    </div>
+                    {p.place && (
+                      <p className="font-display text-lg mt-4 group-hover:text-brand-secondary transition-colors">
+                        {p.place}
+                      </p>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+
+        {/* 7. Instagram (Curated) */}
         {instaPosts && instaPosts.length > 0 && (
           <section className="py-28 md:py-36 px-6 md:px-12 bg-[#F2F1ED] border-t border-black/5">
             <div className="max-w-screen-2xl mx-auto">

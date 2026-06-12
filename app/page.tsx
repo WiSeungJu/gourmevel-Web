@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { projectId } from "@/sanity/env";
+import { fetchNaverPosts } from "@/sanity/lib/naver";
 import HomeClient from "@/components/home/HomeClient";
 
 // Revalidate data every hour
@@ -10,6 +11,7 @@ export default async function Home() {
   let topArticles = [];
   let allArticles = [];
   let instaPosts = [];
+  let photos = [];
 
   if (projectId) {
     try {
@@ -70,10 +72,24 @@ export default async function Home() {
       }`;
       instaPosts = await client.fetch(instaQuery);
 
+      // 5. Photography (최신/대표 8개)
+      const photosQuery = `*[_type == "photo"] | order(isFeatured desc, publishedAt desc)[0...8] {
+        _id,
+        place,
+        caption,
+        category,
+        orientation,
+        image
+      }`;
+      photos = await client.fetch(photosQuery);
+
     } catch (error) {
       console.warn("Failed to fetch data from Sanity:", error);
     }
   }
+
+  // 네이버 블로그 최신 리뷰 (Sanity와 무관하게 RSS로)
+  const naverPosts = await fetchNaverPosts(3);
 
   return (
     <HomeClient
@@ -81,6 +97,8 @@ export default async function Home() {
       topArticles={topArticles}
       allArticles={allArticles}
       instaPosts={instaPosts}
+      naverPosts={naverPosts}
+      photos={photos}
     />
   );
 }
