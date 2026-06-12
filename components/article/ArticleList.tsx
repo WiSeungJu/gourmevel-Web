@@ -16,6 +16,7 @@ interface Article {
   mainImage?: any;
   categories?: string[];
   publishedAt: string;
+  externalUrl?: string;
 }
 
 interface ArticleListProps {
@@ -60,17 +61,11 @@ export default function ArticleList({ title, description, articles }: ArticleLis
           {/* Articles Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">
             {articles.length > 0 ? (
-              articles.map((article, idx) => (
-                <motion.article 
-                  key={article._id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  className="group cursor-pointer"
-                >
-                  <Link href={`/article/${article.slug.current}`}>
-                    <div className="relative aspect-[4/3] mb-8 overflow-hidden bg-gray-200">
+              articles.map((article, idx) => {
+                const isExternal = !!article.externalUrl;
+                const cardInner = (
+                  <>
+                    <div className="relative aspect-[4/3] mb-8 overflow-hidden bg-brand-stone/40">
                       <Image
                         src={getImageUrl(article.mainImage)}
                         alt={article.title}
@@ -78,30 +73,53 @@ export default function ArticleList({ title, description, articles }: ArticleLis
                         className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale-[20%] group-hover:grayscale-0"
                       />
                     </div>
-                    
+
                     <div className="flex items-center justify-between mb-4 border-t border-brand-primary/10 pt-4">
                       <span className="font-sans text-[10px] tracking-widest uppercase text-brand-primary/40">
-                        {new Date(article.publishedAt).toLocaleDateString()}
+                        {new Date(article.publishedAt).toLocaleDateString('ko-KR')}
                       </span>
                       <span className="font-sans text-[10px] tracking-widest uppercase text-brand-primary/40">
                         {article.categories?.[0]}
                       </span>
                     </div>
 
-                    <h2 className="font-display text-3xl md:text-4xl mb-4 group-hover:text-brand-primary transition-colors">
+                    <h2 className="font-display text-3xl md:text-4xl mb-4 group-hover:text-brand-secondary transition-colors">
                       {article.title}
                     </h2>
                     <p className="font-serif text-brand-primary/60 line-clamp-2 leading-relaxed mb-6">
                       {article.subtitle}
                     </p>
 
-                    <div className="flex items-center gap-2 text-brand-primary/40 group-hover:text-brand-primary transition-colors">
-                      <span className="font-sans text-[10px] tracking-widest uppercase">Read Story</span>
+                    <div className="flex items-center gap-2 text-brand-primary/40 group-hover:text-brand-secondary transition-colors">
+                      <span className="font-sans text-[10px] tracking-widest uppercase">
+                        {isExternal ? '전문 보기 · 네이버' : 'Read Story'}
+                      </span>
                       <ArrowUpRight className="w-4 h-4" />
                     </div>
-                  </Link>
-                </motion.article>
-              ))
+                  </>
+                );
+
+                return (
+                  <motion.article
+                    key={article._id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: idx * 0.1 }}
+                    className="group cursor-pointer"
+                  >
+                    {isExternal ? (
+                      <a href={article.externalUrl} target="_blank" rel="noopener noreferrer">
+                        {cardInner}
+                      </a>
+                    ) : (
+                      <Link href={`/article/${article.slug.current}`}>
+                        {cardInner}
+                      </Link>
+                    )}
+                  </motion.article>
+                );
+              })
             ) : (
               <div className="col-span-full py-20 text-center border-t border-b border-brand-primary/10">
                 <p className="font-serif text-xl text-brand-primary/40 italic">

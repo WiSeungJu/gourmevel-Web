@@ -1,28 +1,33 @@
 import { client } from "@/sanity/lib/client";
-import ArticleList from "@/components/article/ArticleList";
+import { projectId } from "@/sanity/env";
+import { fetchNaverPosts } from "@/sanity/lib/naver";
+import ReviewsClient from "@/components/reviews/ReviewsClient";
 
-// Revalidate every hour
+// Revalidate every hour (Sanity 대표글 + 네이버 RSS 모두 1시간 캐시)
 export const revalidate = 3600;
 
 export default async function ReviewsPage() {
-  const query = `*[_type == "article" && categories match "Review"] | order(publishedAt desc) {
-    _id,
-    title,
-    subtitle,
-    slug,
-    mainImage,
-    categories,
-    publishedAt
-  }`;
+  let featured = [];
 
-  const articles = await client.fetch(query);
+  if (projectId) {
+    try {
+      const query = `*[_type == "article" && categories match "review"] | order(publishedAt desc) {
+        _id,
+        title,
+        subtitle,
+        slug,
+        mainImage,
+        categories,
+        publishedAt,
+        externalUrl
+      }`;
+      featured = await client.fetch(query);
+    } catch (error) {
+      console.warn("Failed to fetch reviews from Sanity:", error);
+    }
+  }
 
-  return (
-    <ArticleList 
-      title="Reviews" 
-      description="엄선된 다이닝 공간에서의 미식 경험을 상세한 리뷰와 함께 소개합니다."
-      articles={articles}
-    />
-  );
+  const naverPosts = await fetchNaverPosts(12);
+
+  return <ReviewsClient featured={featured} naverPosts={naverPosts} />;
 }
-

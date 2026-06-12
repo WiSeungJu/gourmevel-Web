@@ -59,8 +59,15 @@ export default defineType({
           {title: 'Essay', value: 'essay'},
           {title: 'News', value: 'news'},
           {title: 'Interview', value: 'interview'},
+          {title: 'Magazine', value: 'magazine'},
         ]
       }
+    }),
+    defineField({
+      name: 'externalUrl',
+      title: 'External URL (네이버 블로그 원문)',
+      type: 'url',
+      description: '입력하면 카드 클릭 시 웹 아티클 대신 이 외부 링크(네이버 블로그 등)로 이동합니다. 비워두면 웹에서 작성한 본문을 보여줍니다.',
     }),
     defineField({
       name: 'publishedAt',

@@ -25,6 +25,7 @@ const notoSerifKR = Noto_Serif_KR({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://gourmevel.com"),
   title: "Gourmevel",
   description: "Taste The Extraordinary.",
   keywords: ["Gourmevel", "고메블", "미식", "파인다이닝", "위승주"],

@@ -9,6 +9,7 @@ export default async function Home() {
   let recentArticle = null;
   let topArticles = [];
   let allArticles = [];
+  let instaPosts = [];
 
   if (projectId) {
     try {
@@ -20,7 +21,8 @@ export default async function Home() {
         slug,
         mainImage,
         categories,
-        publishedAt
+        publishedAt,
+        externalUrl
       }`;
       recentArticle = await client.fetch(recentQuery);
 
@@ -35,7 +37,8 @@ export default async function Home() {
         slug,
         mainImage,
         categories,
-        publishedAt
+        publishedAt,
+        externalUrl
       }`;
       topArticles = await client.fetch(topQuery);
 
@@ -52,9 +55,20 @@ export default async function Home() {
         slug,
         mainImage,
         categories,
-        publishedAt
+        publishedAt,
+        externalUrl
       }`;
       allArticles = await client.fetch(allQuery);
+
+      // 4. Instagram (큐레이션, 최신 8개)
+      const instaQuery = `*[_type == "instagramPost"] | order(postedAt desc)[0...8] {
+        _id,
+        caption,
+        permalink,
+        image,
+        postedAt
+      }`;
+      instaPosts = await client.fetch(instaQuery);
 
     } catch (error) {
       console.warn("Failed to fetch data from Sanity:", error);
@@ -62,10 +76,11 @@ export default async function Home() {
   }
 
   return (
-    <HomeClient 
+    <HomeClient
       recentArticle={recentArticle}
       topArticles={topArticles}
       allArticles={allArticles}
+      instaPosts={instaPosts}
     />
   );
 }

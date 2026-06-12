@@ -6,10 +6,19 @@
   --font-sans: var(--font-inter), sans-serif;
   --font-serif: var(--font-noto), serif;
 
-  /* Colors - Deep & Muted */
-  --color-brand-paper: #F2F1ED;
+  /* Colors - Deep & Muted Editorial Palette */
+  /* Surfaces */
+  --color-brand-paper: #F2F1ED;   /* primary page surface (cream) */
+  --color-brand-beige: #F2F1ED;   /* alias used across content pages */
+  --color-brand-stone: #D8D4CA;   /* warm neutral for borders / inputs */
+
+  /* Ink */
+  --color-brand-primary: #1A1A18; /* main ink — text & dark buttons */
   --color-brand-black: #111111;
   --color-brand-gray: #888888;
+
+  /* Accent — restrained wine tone (fine-dining), never purple */
+  --color-brand-secondary: #7A2E38;
 }
 
 @layer base {

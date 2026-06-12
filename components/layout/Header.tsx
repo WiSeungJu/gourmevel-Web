@@ -42,6 +42,7 @@ export default function Header() {
     { label: 'About', href: '/about' },
     { label: 'Stories', href: '/stories' },
     { label: 'Reviews', href: '/reviews' },
+    { label: 'Photography', href: '/photography' },
     { label: 'Contact', href: '/contact' },
   ];
 
@@ -85,7 +86,7 @@ export default function Header() {
           <nav className={`flex justify-end items-center relative z-10 ${isScrolled ? 'pointer-events-auto' : 'pointer-events-auto'}`}>
              <div className="hidden md:flex items-center gap-8">
                <div className="flex gap-6">
-                 {menuItems.slice(0, 3).map((item) => (
+                 {menuItems.slice(0, 4).map((item) => (
                    <Link 
                      key={item.href}
                      href={item.href} 
@@ -183,7 +184,7 @@ export default function Header() {
                 </a>
               </div>
               <p className="font-sans text-[10px] tracking-widest uppercase opacity-30">
-                &copy; 2024 Gourmevel.
+                &copy; {new Date().getFullYear()} Gourmevel.
               </p>
             </div>
           </motion.div>
