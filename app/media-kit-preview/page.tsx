@@ -111,7 +111,7 @@ export default function MediaKitPage() {
                             </li>
                             <li className="group border-b border-black/20 pb-4 flex items-baseline">
                                 <span className="font-sans text-sm font-bold w-12 opacity-40">07.</span>
-                                <span className="font-sans text-sm font-bold tracking-widest uppercase opacity-80 group-hover:opacity-100 transition-opacity">PHOTOGRAPHY</span>
+                                <span className="font-sans text-sm font-bold tracking-widest uppercase opacity-80 group-hover:opacity-100 transition-opacity">REELS</span>
                             </li>
                         </ul>
 
@@ -359,7 +359,7 @@ export default function MediaKitPage() {
                                 <div className="mb-8 border-b border-black/10 pb-6">
                                     <div className="flex justify-between items-baseline mb-2">
                                         <h3 className="font-display text-4xl">Type A</h3>
-                                        <span className="font-display text-2xl opacity-40">₩ 300,000</span>
+                                        <span className="font-display text-2xl opacity-40">₩ 150,000</span>
                                     </div>
                                     <p className="font-serif text-xl opacity-60 mb-1">Brand Essay</p>
                                     <p className="font-sans text-xs opacity-40 uppercase tracking-widest">브랜드 에세이</p>
@@ -392,7 +392,7 @@ export default function MediaKitPage() {
                                 <div className="mb-8 border-b border-white/20 pb-6">
                                     <div className="flex justify-between items-baseline mb-2">
                                         <h3 className="font-display text-4xl">Type B</h3>
-                                        <span className="font-display text-2xl opacity-40">₩ 600,000</span>
+                                        <span className="font-display text-2xl opacity-40">₩ 200,000</span>
                                     </div>
                                     <p className="font-serif text-xl opacity-80 mb-1">Director's Feature</p>
                                     <p className="font-sans text-xs opacity-40 uppercase tracking-widest">기획 취재</p>
@@ -423,15 +423,15 @@ export default function MediaKitPage() {
                     </div>
                 </section>
 
-                {/* PAGE 9: PHOTOGRAPHY SERVICE */}
+                {/* PAGE 9: REELS PRODUCTION */}
                 <section className="relative w-full aspect-[297/210] bg-[#F2F1ED] text-[#111] flex flex-col p-20 shadow-2xl">
                     <div className="flex justify-between items-center mb-16">
                         <div>
-                            <span className="font-sans text-xs tracking-[0.3em] opacity-40 block mb-4">07. PHOTOGRAPHY</span>
-                            <h2 className="font-display text-5xl">Visual Directing</h2>
+                            <span className="font-sans text-xs tracking-[0.3em] opacity-40 block mb-4">07. REELS</span>
+                            <h2 className="font-display text-5xl">Reels Production</h2>
                         </div>
                         <div className="text-right opacity-60 text-sm font-sans">
-                            <p>단순 촬영이 아닌, 브랜드의 무드를 담아냅니다.</p>
+                            <p>기계음이 아닌, 진짜 목소리로 브랜드를 이야기합니다.</p>
                         </div>
                     </div>
 
@@ -439,12 +439,12 @@ export default function MediaKitPage() {
                         {/* Left: Description */}
                         <div className="w-1/2 space-y-12">
                             <div>
-                                <h3 className="font-display text-3xl mb-4">Mood Of The Moment</h3>
+                                <h3 className="font-display text-3xl mb-4">Story In Motion</h3>
                                 <p className="font-serif text-xl leading-relaxed opacity-80 break-keep">
-                                    &quot;숨겨진 매력을 찾아내어, 브랜드의 본질을 시각화합니다.&quot;
+                                    &quot;짧은 호흡 안에서도, 브랜드의 결을 잃지 않는 영상을 만듭니다.&quot;
                                 </p>
                                 <p className="font-sans text-sm mt-4 opacity-60 leading-relaxed break-keep">
-                                    과한 보정은 오히려 실제 음식과의 괴리감을 만들어 실망을 줄 수 있습니다. 고메블은 현장에서만 느낄 수 있는 고유의 아름다움과 공기를 있는 그대로 포착하여, 브랜드가 가진 숨겨진 매력을 찾아냅니다.
+                                    획일적인 AI 성우(TTS)에 기대지 않고 에디터의 실제 목소리로 녹음하여, 고메블 특유의 정제된 톤을 영상에 그대로 담습니다. 촬영부터 편집, 자막, 썸네일까지 하나의 흐름으로 완성합니다.
                                 </p>
                             </div>
 
@@ -459,15 +459,19 @@ export default function MediaKitPage() {
                                 <ul className="space-y-3 font-sans text-sm opacity-80">
                                     <li className="flex items-start">
                                         <span className="w-1.5 h-1.5 rounded-full bg-black/20 mr-3 mt-1.5"></span>
-                                        <span><strong>10 Cuts</strong> (Gourmevel Signature Grading A-Cut)</span>
+                                        <span><strong>실제 녹음</strong> 기반 나레이션 (TTS 미사용)</span>
                                     </li>
                                     <li className="flex items-start">
                                         <span className="w-1.5 h-1.5 rounded-full bg-black/20 mr-3 mt-1.5"></span>
-                                        <span><strong>1 Hour</strong> 현장 촬영 및 디렉팅</span>
+                                        <span>현장 <strong>영상 촬영</strong> 및 편집</span>
                                     </li>
                                     <li className="flex items-start">
                                         <span className="w-1.5 h-1.5 rounded-full bg-black/20 mr-3 mt-1.5"></span>
-                                        <span>추가 1컷당 33,000원</span>
+                                        <span><strong>자막 · 썸네일</strong> 제작 포함</span>
+                                    </li>
+                                    <li className="flex items-start">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-black/20 mr-3 mt-1.5"></span>
+                                        <span>인스타그램 릴스 1편 발행</span>
                                     </li>
                                 </ul>
                             </div>
@@ -475,7 +479,7 @@ export default function MediaKitPage() {
 
                         {/* Right: Abstract/Mood Image Placeholder */}
                         <div className="w-1/2 h-full relative overflow-hidden">
-                            <Image src="/Photograpy.jpg" alt="Photography Mood" fill className="object-cover" />
+                            <Image src="/Photograpy.jpg" alt="Reels Mood" fill className="object-cover" />
                         </div>
                     </div>
                 </section>
@@ -497,7 +501,7 @@ export default function MediaKitPage() {
                     </div>
 
                     <div className="absolute bottom-12 text-center opacity-30 font-sans text-xs tracking-[0.2em]">
-                        <p>GOURMEVEL MEDIA KIT 2025</p>
+                        <p>GOURMEVEL MEDIA KIT 2026</p>
                     </div>
                 </section>
             </div>
