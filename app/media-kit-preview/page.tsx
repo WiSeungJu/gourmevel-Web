@@ -31,6 +31,10 @@ export default function MediaKitPage() {
              break-after: page !important;
              overflow: hidden !important;
            }
+           section:last-child {
+             page-break-after: avoid !important;
+             break-after: avoid !important;
+           }
            .print\:hidden {
              display: none !important;
            }
