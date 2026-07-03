@@ -18,8 +18,13 @@ export default function MediaKitPage() {
             size: A4 landscape;
             margin: 0;
           }
+          *, *::before, *::after {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
           body {
             -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
             background-color: white;
             margin: 0;
             padding: 0;
