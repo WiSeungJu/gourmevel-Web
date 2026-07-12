@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { projectId } from "@/sanity/env";
-import { fetchNaverPosts } from "@/sanity/lib/naver";
+import { fetchAllNaverPosts, fetchNaverCategories } from "@/sanity/lib/naver";
 import ReviewsClient from "@/components/reviews/ReviewsClient";
 
 // Revalidate every hour (Sanity 대표글 + 네이버 RSS 모두 1시간 캐시)
@@ -27,7 +27,16 @@ export default async function ReviewsPage() {
     }
   }
 
-  const naverPosts = await fetchNaverPosts(12);
+  const [naverPosts, naverCategories] = await Promise.all([
+    fetchAllNaverPosts(),
+    fetchNaverCategories(),
+  ]);
 
-  return <ReviewsClient featured={featured} naverPosts={naverPosts} />;
+  return (
+    <ReviewsClient
+      featured={featured}
+      naverPosts={naverPosts}
+      naverCategories={naverCategories}
+    />
+  );
 }
