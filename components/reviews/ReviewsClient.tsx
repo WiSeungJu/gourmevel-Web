@@ -9,7 +9,7 @@ import { ArrowUpRight } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { urlFor } from "@/sanity/lib/image";
-import { NaverPost, NAVER_BLOG_URL } from "@/sanity/lib/naver";
+import { NaverPost, NaverCategory, NAVER_BLOG_URL } from "@/sanity/lib/naver";
 
 interface Article {
   _id: string;
@@ -25,12 +25,24 @@ interface Article {
 interface ReviewsClientProps {
   featured?: Article[];
   naverPosts?: NaverPost[];
+  naverCategories?: NaverCategory[];
 }
 
-export default function ReviewsClient({ featured = [], naverPosts = [] }: ReviewsClientProps) {
+export default function ReviewsClient({
+  featured = [],
+  naverPosts = [],
+  naverCategories = [],
+}: ReviewsClientProps) {
   // 못 불러온 썸네일은 타이포 카드로 대체
   const [failed, setFailed] = useState<Set<string>>(new Set());
   const markFailed = (id: string) => setFailed((prev) => new Set(prev).add(id));
+
+  // 선택된 카테고리(null = 전체). 실제 글이 존재하는 카테고리만 필터로 노출.
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
+  const usedCategoryNos = new Set(
+    naverPosts.map((p) => p.categoryNo).filter((n): n is number => typeof n === "number")
+  );
+  const categories = naverCategories.filter((c) => usedCategoryNos.has(c.categoryNo));
 
   const getImageUrl = (image: any) => {
     if (!image) return undefined;
@@ -40,7 +52,9 @@ export default function ReviewsClient({ featured = [], naverPosts = [] }: Review
 
   // 대표글에 이미 외부링크로 건 네이버 글은 자동 목록에서 제외 (중복 방지)
   const featuredLinks = new Set(featured.map((a) => a.externalUrl).filter(Boolean));
-  const posts = naverPosts.filter((p) => !featuredLinks.has(p.link));
+  const posts = naverPosts
+    .filter((p) => !featuredLinks.has(p.link))
+    .filter((p) => activeCategory === null || p.categoryNo === activeCategory);
 
   const fmtNaverDate = (d: string) => {
     if (!d) return "";
@@ -171,6 +185,35 @@ export default function ReviewsClient({ featured = [], naverPosts = [] }: Review
                 블로그 전체 보기 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </div>
+
+            {/* 카테고리 필터 (게시판) */}
+            {categories.length > 0 && (
+              <div className="flex flex-wrap gap-x-6 gap-y-3 mb-12 -mt-2">
+                <button
+                  onClick={() => setActiveCategory(null)}
+                  className={`font-sans text-[11px] tracking-[0.2em] uppercase transition-colors ${
+                    activeCategory === null
+                      ? "text-brand-secondary"
+                      : "text-brand-primary/40 hover:text-brand-primary"
+                  }`}
+                >
+                  All
+                </button>
+                {categories.map((c) => (
+                  <button
+                    key={c.categoryNo}
+                    onClick={() => setActiveCategory(c.categoryNo)}
+                    className={`font-sans text-[11px] tracking-[0.2em] uppercase transition-colors ${
+                      activeCategory === c.categoryNo
+                        ? "text-brand-secondary"
+                        : "text-brand-primary/40 hover:text-brand-primary"
+                    }`}
+                  >
+                    {c.name}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {posts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
