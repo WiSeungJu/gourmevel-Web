@@ -58,10 +58,10 @@ export default function Footer() {
                 <span className="font-sans font-bold text-black/70 mr-2">사업자등록번호</span> 342-15-02376
               </p>
               <p>
-                <span className="font-sans font-bold text-black/70 mr-2">주소</span> 서울특별시 서대문구 가재울미래로 2
+                <span className="font-sans font-bold text-black/70 mr-2">주소</span> 서울특별시 서대문구 남가좌동 385
               </p>
               <p>
-                <span className="font-sans font-bold text-black/70 mr-2">이메일</span> gourmevel@gmail.com
+                <span className="font-sans font-bold text-black/70 mr-2">이메일</span> sean@gourmevel.com
               </p>
             </div>
 

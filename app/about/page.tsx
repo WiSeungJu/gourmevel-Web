@@ -238,7 +238,7 @@ export default function AboutPage() {
               {/* Image Area */}
               <div className="w-full md:w-5/12 aspect-[3/4] bg-gray-100 relative">
                 <Image
-                  src="/profile.jpg"
+                  src="/profile-about.jpg"
                   alt="Editor Portrait"
                   fill
                   className="object-cover"

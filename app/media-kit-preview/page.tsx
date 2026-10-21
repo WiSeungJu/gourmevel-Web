@@ -505,7 +505,7 @@ export default function MediaKitPage() {
                         </p>
 
                         <div className="inline-block border border-white/20 px-12 py-6 rounded-full">
-                            <p className="font-sans text-xl tracking-wider opacity-80">gourmevel@gmail.com</p>
+                            <p className="font-sans text-xl tracking-wider opacity-80">sean@gourmevel.com</p>
                         </div>
                     </div>
 

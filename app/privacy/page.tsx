@@ -94,7 +94,7 @@ export default function PrivacyPage() {
                 </p>
                 <div className="mt-4 p-6 bg-white border border-brand-primary/10">
                   <p className="font-bold text-brand-primary mb-2">개인정보 보호 담당 부서</p>
-                  <p className="text-sm">이메일: gourmevel@gmail.com</p>
+                  <p className="text-sm">이메일: sean@gourmevel.com</p>
                 </div>
               </section>
 
